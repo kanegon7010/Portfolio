@@ -1,2 +1,5 @@
+<% if user_signed_in? %>
+    <li><%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %></li>
+<% end %>
 <h1>Homes#index</h1>
 <p>Find me in app/views/homes/index.html.erb</p>
