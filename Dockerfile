@@ -6,9 +6,13 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 RUN apt-get update -qq && apt-get install -y nodejs yarn
 RUN mkdir /myapp
 WORKDIR /myapp
+
+ENV APP_PATH=/myapp 
+ENV BUNDLE_PATH=$APP_PATH/vendor/bundle
+RUN bundle config path $BUNDLE_PATH
+
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
 COPY . /myapp
 
 # Add a script to be executed every time the container starts.
@@ -18,4 +22,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle","exec","rails", "server", "-b", "0.0.0.0"]
