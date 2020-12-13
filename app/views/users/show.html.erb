@@ -1,0 +1,24 @@
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<% provide(:title, @user.username) %>
+<h1>My page (<%= @user.username %>)</h1>
+
+<table class="outline fadeInUp">
+    <tr>
+        <th>ユーザーID</th>
+        <td align="left"><%= @user.username %></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
+        <td align="left"><%= @user.email %></td>
+    </tr>
+    <tr>
+        <th>作成日</th>
+        <td align="left"><%= @user.created_at %></td>
+    </tr>
+    <tr>
+        <th>更新日</th>
+        <td align="left"><%= @user.updated_at %></td>
+    </tr>
+</table>

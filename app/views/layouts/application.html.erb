@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <!--<title>Myapp</title>-->
+    <title><%= yield(:title) || 'Portfolio' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,7 +13,16 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    
+
+    <% if user_signed_in? %>
+      <li><a href="/users/<%= current_user.id %>">マイページ</a></li>
+      <li><%= link_to 'ユーザー一覧', users_path %></li>
+      <li><%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to 'LOGIN', new_user_session_path %></li>
+      <li><%= link_to '新規登録', new_user_registration_path %></li>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
