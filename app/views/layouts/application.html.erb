@@ -14,13 +14,15 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+    <li><%= link_to 'ホーム', root_path %></li>
     <% if user_signed_in? %>
       <li><a href="/users/<%= current_user.id %>">マイページ</a></li>
       <li><%= link_to 'ユーザー一覧', users_path %></li>
-      <li><%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %></li>
+      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
     <% else %>
-      <li><%= link_to 'LOGIN', new_user_session_path %></li>
       <li><%= link_to '新規登録', new_user_registration_path %></li>
+      <li><%= link_to 'ログイン', new_user_session_path %></li>
+      <li><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></li>
     <% end %>
 
     <%= yield %>

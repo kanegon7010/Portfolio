@@ -4,11 +4,18 @@ class ApplicationController < ActionController::Base
 
     protected
       def configure_permitted_parameters
-        devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-        devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+        devise_parameter_sanitizer.permit(:sign_up, keys: [:username,:service_id])
+        devise_parameter_sanitizer.permit(:account_update, keys: [:username,:service_id])
       end
 
       def after_sign_out_path_for(resource)
         new_user_session_path
+      end
+
+      def check_guest
+        email = resource&.email || params[:user][:email].downcase
+        if email == 'guest@example.com'
+          redirect_to root_path, alert: 'ゲストユーザーの変更・削除はできません。'
+        end
       end
 end
