@@ -25,7 +25,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  VALID_PASSWORD_REGEX =/\A[a-z0-9]+\z/
+  VALID_PASSWORD_REGEX =/\A[a-zA-Z0-9_.-]+\z/
   validates :service_id, 
     presence: true,
     uniqueness: true,
@@ -33,7 +33,8 @@ class User < ApplicationRecord
     format: { 
       with: VALID_PASSWORD_REGEX
     }
-  validates :password, format: { with: VALID_PASSWORD_REGEX }
+  validates :password, on: :create, format: { with: VALID_PASSWORD_REGEX }
+  validates :password, on: :update, allow_blank: true, format: { with: VALID_PASSWORD_REGEX }
   
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
