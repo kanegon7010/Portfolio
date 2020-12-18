@@ -1,0 +1,33 @@
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<% provide(:title, @user.username) %>
+<h1>My page (<%= @user.username %>)</h1>
+
+<% if @user.id == current_user.id %>
+<li><%= link_to 'アカウントの編集', edit_user_registration_path %></li>
+<li><%= link_to 'アカウントの削除', user_registration_path, method: :delete %></li>
+<% end %>
+
+<table class="outline fadeInUp">
+    <tr>
+        <th>ユーザーID</th>
+        <td align="left"><%= @user.service_id %></td>
+    </tr>
+    <tr>
+        <th>ユーザー名</th>
+        <td align="left"><%= @user.username %></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
+        <td align="left"><%= @user.email %></td>
+    </tr>
+    <tr>
+        <th>作成日</th>
+        <td align="left"><%= @user.created_at %></td>
+    </tr>
+    <tr>
+        <th>更新日</th>
+        <td align="left"><%= @user.updated_at %></td>
+    </tr>
+</table>
