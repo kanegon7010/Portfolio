@@ -7,12 +7,15 @@ RUN apt-get update -qq && apt-get install -y nodejs yarn
 RUN mkdir /myapp
 WORKDIR /myapp
 
-ENV APP_PATH=/myapp 
-ENV BUNDLE_PATH=$APP_PATH/vendor/bundle
-RUN bundle config path $BUNDLE_PATH
-
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+
+ENV APP_PATH=/myapp 
+ENV BUNDLE_PATH=$APP_PATH/vendor/bundle
+ENV PATH=$APP_PATH/vendor/bin:$PATH
+RUN bundle config path $BUNDLE_PATH  \
+    &&bundle binstubs --path=$APP_PATH/vendor/bin ; exit 0
+
 COPY . /myapp
 
 # Add a script to be executed every time the container starts.
