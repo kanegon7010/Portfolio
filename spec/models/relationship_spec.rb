@@ -22,5 +22,31 @@
 require 'rails_helper'
 
 RSpec.describe Relationship, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Association' do
+    let(:association) do
+       # reflect_on_associationで対象のクラスと引数で指定するクラスの関連を返す
+       # described_class = RSpec.describeのあとのクラス名のこと 
+       described_class.reflect_on_association(target)
+    end
+
+    context 'following（Userモデル）とのアソシエーション' do
+      let(:target) { :following }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to 
+      end
+      it 'User（following)と関連していること' do
+         expect(association.class_name).to eq 'User' 
+      end
+    end
+
+    context 'follower（Userモデル）とのアソシエーション' do
+      let(:target) { :follower }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to 
+      end
+      it 'User（follower)と関連していること' do
+         expect(association.class_name).to eq 'User'  
+      end
+    end
+  end
 end
