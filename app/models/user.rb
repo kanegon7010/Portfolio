@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships
 
   VALID_PASSWORD_REGEX =/\A[a-zA-Z0-9_.-]+\z/
+  validates :username, presence: true
   validates :service_id, 
     presence: true,
     uniqueness: true,

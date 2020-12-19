@@ -21,9 +21,14 @@
 #
 FactoryBot.define do
   factory :relationship do
-    association :follower
-    association :following
-    # follower { nil }
-    # following { nil }
+    follower
+    following
+
+    # 上記は、userのfactoryにて、エイリアスをつけたことにより省略して記載している。
+    # 省略しない場合は、下記の通りとなる。
+    # association :follower, factory: :user
+
+    # associationは、関連するデータを一緒に作成してくれるメソッド。
+
   end
 end

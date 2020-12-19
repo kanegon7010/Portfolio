@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pp'
 
 RSpec.describe "Relationships", type: :request do
 	let!(:user) { create(:user) }
