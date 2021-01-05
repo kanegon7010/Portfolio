@@ -1,0 +1,5 @@
+document.getElementById("follow_form_<%= @user.id %>").innerHTML = "<%= j(render( partial: "users/unfollow", locals: { user: @user })) %>";
+document.getElementById("rscounter_<%= @user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: @user })) %>";
+document.getElementById("rscounter_<%= current_user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: current_user })) %>";
+<%# 上記を省略せずに書いた場合%> 
+// document.getElementById("follow_form").innerHTML = "<%= escape_javascript( render partial: "users/unfollow", locals: { user: @user }) %>";

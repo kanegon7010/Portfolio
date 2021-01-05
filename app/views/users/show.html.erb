@@ -9,6 +9,19 @@
 <li><%= link_to 'アカウントの削除', user_registration_path, method: :delete %></li>
 <% end %>
 
+    <div id="rscounter_<%= @user.id %>">
+        <%= render "relationshipcounter", user: @user %>
+    </div>
+    <div id="follow_form_<%= @user.id %>">
+        <% if user_signed_in? && @user != current_user%>
+            <% if current_user.following?(@user) %>
+                <%= render "unfollow", user: @user %>
+            <% else %>
+                <%= render "follow", user: @user %>
+            <% end %>
+        <% end %>
+    </div>
+
 <table class="outline fadeInUp">
     <tr>
         <th>ユーザーID</th>

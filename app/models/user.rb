@@ -25,7 +25,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :following_relationships,foreign_key: "follower_id", class_name: "Relationship",  dependent: :destroy
+  has_many :followings, through: :following_relationships
+  has_many :follower_relationships,foreign_key: "following_id",class_name: "Relationship", dependent: :destroy
+  has_many :followers, through: :follower_relationships
+
   VALID_PASSWORD_REGEX =/\A[a-zA-Z0-9_.-]+\z/
+  validates :username, presence: true
   validates :service_id, 
     presence: true,
     uniqueness: true,
@@ -36,6 +42,20 @@ class User < ApplicationRecord
   validates :password, on: :create, format: { with: VALID_PASSWORD_REGEX }
   validates :password, on: :update, allow_blank: true, format: { with: VALID_PASSWORD_REGEX }
   
+  def following?(other_user)
+    self.followings.include?(other_user)
+  end
+
+  #ユーザーをフォローする
+  def follow(other_user)
+    self.following_relationships.create(following_id: other_user.id)
+  end
+
+  #ユーザーのフォローを解除する
+  def unfollow(other_user)
+    self.following_relationships.find_by(following_id: other_user.id).destroy
+  end
+
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.service_id = 'guestuser'

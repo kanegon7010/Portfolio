@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show]
+  before_action :authenticate_user!, only: [:index, :show, :followings, :followers]
   
   def index
     @users = User.all
@@ -8,5 +8,17 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end  
+
+  def followings
+    @user =User.find(params[:id])
+    @users =@user.followings
+    render 'show_followings'
+  end
+
+  def followers
+    @user =User.find(params[:id])
+    @users =@user.followers
+    render 'show_followers'
+  end
   
 end
