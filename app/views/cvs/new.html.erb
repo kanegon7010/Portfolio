@@ -1,0 +1,21 @@
+<h1>Cvs#new</h1>
+<p>Find me in app/views/cvs/new.html.erb</p>
+
+<%= form_with model: @cv, url: cv_path do |f| %>
+    <div class="form-group">
+        <%= f.label :education, '最終学歴' %>
+        <%= f.text_field :education, class: 'form-control'%>
+    </div>
+    <div class="form-group">
+        <%= f.label :display, '公開する' %>
+        <%= f.check_box :display, class: 'form-control'%>
+    </div>
+    <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :objectives, column: :name, f: f, type: :new } %>
+    <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :summaries, column: :name, f: f, type: :new } %>
+    <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :skills, column: :name, f: f, type: :new } %>
+    <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :work_experiences, column: :description, f: f, type: :new } %>
+    <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :qualifications, column: :name, f: f, type: :new } %>
+    <%= f.submit '保存', class: 'btn btn-primary' %>
+<% end %>
+
+<%= javascript_pack_tag 'cv/application' %>
