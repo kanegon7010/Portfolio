@@ -1,16 +1,21 @@
 class CvsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_target_cv, only: %i[new edit update]
+  before_action :post_action_user_chk, only: %i[create update]
 
   def show
     @cv =  Cv.eager_load(:user, :objectives, :skills, :summaries, :qualifications, :work_experiences).where(user_id: params[:id])
   end
 
   def new
-    if @cv == nil
-      @cv = Cv.new(flash[:cv]) 
+    if current_user.id == params[:id].to_i
+      if @cv == nil
+        @cv = Cv.new(flash[:cv]) 
+      else
+        redirect_to edit_cv_path
+      end
     else
-      redirect_to edit_cv_path
+      redirect_to new_cv_path(current_user)
     end
   end
 
@@ -29,10 +34,14 @@ class CvsController < ApplicationController
   end
 
   def edit
-    if @cv == nil
-      redirect_to new_cv_path
+    if current_user.id == params[:id].to_i
+      if @cv == nil
+        redirect_to new_cv_path
+      end
+      @cv.attributes = flash[:cv] if flash[:cv]
+    else
+      redirect_to edit_cv_path(current_user)
     end
-    @cv.attributes = flash[:cv] if flash[:cv]
   end
 
   def update
@@ -61,4 +70,5 @@ class CvsController < ApplicationController
     user = User.find(params[:id])
     @cv = user.cv
   end
+
 end

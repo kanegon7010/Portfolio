@@ -20,19 +20,19 @@
 class Cv < ApplicationRecord
   belongs_to :user
 
-  has_many :objectives
+  has_many :objectives, dependent: :delete_all
   accepts_nested_attributes_for :objectives, allow_destroy: true
 
-  has_many :summaries
+  has_many :summaries, dependent: :delete_all
   accepts_nested_attributes_for :summaries, allow_destroy: true
 
-  has_many :skills
+  has_many :skills, dependent: :delete_all
   accepts_nested_attributes_for :skills, allow_destroy: true
 
-  has_many :qualifications
+  has_many :qualifications, dependent: :delete_all
   accepts_nested_attributes_for :qualifications, allow_destroy: true
 
-  has_many :work_experiences
+  has_many :work_experiences, dependent: :delete_all
   accepts_nested_attributes_for :work_experiences, allow_destroy: true
   
 end
