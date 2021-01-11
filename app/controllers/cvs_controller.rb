@@ -4,6 +4,7 @@ class CvsController < ApplicationController
   before_action :post_action_user_chk, only: %i[create update]
 
   def show
+    user = User.find(params[:id])
     @cv =  Cv.eager_load(:user, :objectives, :skills, :summaries, :qualifications, :work_experiences).where(user_id: params[:id])
   end
 

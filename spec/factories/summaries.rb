@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :summary do
-    cv { nil }
-    name { "MyString" }
+    association :cv
+    name { "summaryサマリ" }
   end
 end

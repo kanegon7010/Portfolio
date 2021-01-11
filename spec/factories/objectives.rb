@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :objective do
-    cv { nil }
-    jobname { "MyText" }
+    association :cv
+    name { "objective職業" }
   end
 end

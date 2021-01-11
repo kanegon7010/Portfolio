@@ -170,5 +170,15 @@ RSpec.describe User, type: :model do
          expect(association.class_name).to eq 'Relationship' 
       end
     end
+
+    context 'Cvとのアソシエーション' do
+      let(:target) { :cv }
+      it 'has_one（1対1）になっていること' do
+         expect(association.macro).to eq :has_one
+      end
+      it 'Cvと関連していること' do
+         expect(association.class_name).to eq 'Cv' 
+      end
+    end
   end
 end

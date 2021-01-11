@@ -19,7 +19,7 @@
 #
 FactoryBot.define do
   factory :qualification do
-    cv { nil }
-    qualyficationname { "MyString" }
+    association :cv
+    name { "qualification資格" }
   end
 end

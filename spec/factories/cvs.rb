@@ -19,6 +19,17 @@
 #
 FactoryBot.define do
   factory :cv do
-    user { nil }
+    association :user 
+    education {"大学"}
+
+    trait :with_nested_instances do
+      after( :create ) do |cv|
+        create :objective, cv_id: cv.id
+        create :qualification, cv_id: cv.id
+        create :skill, cv_id: cv.id
+        create :summary, cv_id: cv.id
+        create :work_experience, cv_id: cv.id
+      end
+    end
   end
 end

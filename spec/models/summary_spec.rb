@@ -20,5 +20,19 @@
 require 'rails_helper'
 
 RSpec.describe Summary, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'Cvとのアソシエーション' do
+      let(:target) { :cv }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to 
+      end
+      it 'cvと関連していること' do
+         expect(association.class_name).to eq 'Cv' 
+      end
+    end
+  end
 end
