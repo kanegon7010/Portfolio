@@ -1,0 +1,16 @@
+<% @messages.each do |message| %>
+  <div class="chat-box">
+    <div class="chat-face">
+      <%#= image_tag m.user.avatar, class:"user-image" %>
+    </div>
+    <div class="chat-hukidashi"> <strong><%= message.message %></strong> <br>
+      <%= message.created_at.strftime("%Y-%m-%d %H:%M")%>
+      <%= message.class %>
+      <%= message.room.id %>
+      <%= form_with model: message, method: :delete do |f| %>
+          <%= f.hidden_field :room_id, value: message.room.id %> 
+          <%= f.submit "削除",class: 'form-submit'%>
+      <% end %>
+    </div>
+  </div>
+<% end %>
