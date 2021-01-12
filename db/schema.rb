@@ -10,7 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_025835) do
+ActiveRecord::Schema.define(version: 2021_01_09_090238) do
+
+  create_table "cvs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "education"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_cvs_on_user_id", unique: true
+  end
+
+  create_table "objectives", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "cv_id", null: false
+    t.string "name"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cv_id"], name: "index_objectives_on_cv_id"
+  end
+
+  create_table "qualifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "cv_id", null: false
+    t.string "name"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cv_id"], name: "index_qualifications_on_cv_id"
+  end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "follower_id"
@@ -20,6 +47,24 @@ ActiveRecord::Schema.define(version: 2020_12_18_025835) do
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
     t.index ["following_id"], name: "index_relationships_on_following_id"
+  end
+
+  create_table "skills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "cv_id", null: false
+    t.string "name"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cv_id"], name: "index_skills_on_cv_id"
+  end
+
+  create_table "summaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "cv_id", null: false
+    t.string "name"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cv_id"], name: "index_summaries_on_cv_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -37,6 +82,21 @@ ActiveRecord::Schema.define(version: 2020_12_18_025835) do
     t.index ["service_id"], name: "index_users_on_service_id", unique: true
   end
 
+  create_table "work_experiences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "cv_id", null: false
+    t.text "description"
+    t.boolean "display", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cv_id"], name: "index_work_experiences_on_cv_id"
+  end
+
+  add_foreign_key "cvs", "users"
+  add_foreign_key "objectives", "cvs"
+  add_foreign_key "qualifications", "cvs"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "relationships", "users", column: "following_id"
+  add_foreign_key "skills", "cvs"
+  add_foreign_key "summaries", "cvs"
+  add_foreign_key "work_experiences", "cvs"
 end

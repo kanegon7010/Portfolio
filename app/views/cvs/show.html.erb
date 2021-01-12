@@ -1,0 +1,65 @@
+<h1>Cvs#show</h1>
+<p>Find me in app/views/cvs/show.html.erb</p>
+
+<% @cv.each do |cv| %>
+    <% if cv.display == true %>
+        <table class="outline fadeInUp">
+            <tr>
+                <th>名前</th>
+                <td align="left"><%= cv.user.username %></td>
+            </tr>
+            <tr>
+                <th>EMAIL</th>
+                <td align="left"><%= cv.user.email %></td>
+            </tr>
+            <tr>
+                <th>希望職種</th>
+                <td align="left">
+                    <% cv.objectives.each do |objective| %>
+                        <% if objective.display == true %>
+                            <div><%= objective.name %></div>
+                        <% end %>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th>サマリ</th>
+                <td align="left">
+                    <% cv.summaries.each do |summary| %>
+                        <div><%= summary.name %></div>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th>スキル</th>
+                <td align="left">
+                    <% cv.skills.each do |skill| %>
+                        <div><%= skill.name %></div>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th>職歴</th>
+                <td align="left">
+                    <% cv.work_experiences.each do |work_experience| %>
+                        <div><%= work_experience.description %></div>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th>資格</th>
+                <td align="left">
+                    <% cv.qualifications.each do |qualification| %>
+                        <div><%= qualification.name %></div>
+                    <% end %>
+                </td>
+            </tr>
+            <tr>
+                <th>最終学歴</th>
+                <td align="left"><%= cv.education %></td>
+            </tr>
+        </table>
+    <% else %>
+        <p>非公開に設定されているため閲覧することは出来ません</p>
+    <% end %>
+<% end %>

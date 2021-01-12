@@ -1,0 +1,25 @@
+<div class="form-group">
+    <div id = <%= "" + modelname.to_s + "_group" %> >
+        <span id = <%= "" + modelname.to_s + "" %> ><%= modelname %></span>
+            <% if type == :new %>
+                <%= f.fields_for modelname, cv.send(modelname.to_s).build do |m| %>
+                    <div class = <%= "" + modelname.to_s + "_wrap_" + column.to_s + "" %> >
+                        <%= m.text_area column %>
+                        <%= m.label :display, '表示する' %>
+                        <%= m.check_box :display, class: 'form-control'%>
+                    </div>
+                <% end %>
+            <% else %>
+                <%= f.fields_for modelname, cv.send(modelname.to_s) do |m| %>
+                    <div class = <%= "" + modelname.to_s + "_wrap_" + column.to_s + "" %> >
+                        <%= m.text_area column %>
+                        <%= m.label :_destroy, '削除' %>
+                        <%= m.check_box :_destroy, {}, 1, 0 %>
+                        <%= m.label :display, '表示する' %>
+                        <%= m.check_box :display, class: 'form-control'%>
+                    </div>
+                <% end %>
+            <% end %>
+        <input type="button" value="入力項目追加" id = <%= "" + modelname.to_s + "_button" %> >
+    </div>
+</div>
