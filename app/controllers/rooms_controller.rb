@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     if Entry.where(user_id: current_user.id,room_id: @room.id).present?
-      @messages = @room.messages
+      @messages = Message.eager_load(:room,:user).where(room_id: @room.id)
       @message = Message.new
       @entries = @room.entries
     else
@@ -22,28 +22,32 @@ class RoomsController < ApplicationController
   end
 
   def create
-    otheruser = params[:user_id]
-    currentUserEntry = Entry.where(user_id: current_user.id)
-    otherUserEntry = Entry.where(user_id: otheruser)
-    unless otheruser == current_user.id
-      currentUserEntry.each do |cu|
-        otherUserEntry.each do |u|
-          if cu.room_id == u.room_id then
-            @isRoom = true
-            @roomId = cu.room_id
+    @otheruser = User.find(params[:user_id])
+    if follow_for_follow?(@otheruser.id)
+      currentUserEntry = Entry.where(user_id: current_user.id)
+      otherUserEntry = Entry.where(user_id: @otheruser.id)
+      unless @otheruser.id == current_user.id
+        currentUserEntry.each do |cu|
+          otherUserEntry.each do |u|
+            if cu.room_id == u.room_id then
+              @isRoom = true
+              @roomId = cu.room_id
+            end
           end
         end
-      end
-      if @isRoom
-        redirect_to room_path(@roomId)
+        if @isRoom
+          redirect_to room_path(@roomId)
+        else
+          room = Room.create
+          entry1 = Entry.create(room_id: room.id, user_id: current_user.id)
+          entry2 = Entry.create(params.permit(:user_id).merge(room_id: room.id))
+          redirect_to room_path(room.id)
+        end
       else
-        room = Room.create
-        entry1 = Entry.create(room_id: room.id, user_id: current_user.id)
-        entry2 = Entry.create(params.permit(:user_id).merge(room_id: room.id))
-        redirect_to room_path(room.id)
+        redirect_back(fallback_location: user_path(otheruser))
       end
     else
-      redirect_back(fallback_location: user_path(otheruser))
+      redirect_to root_path 
     end
   end
 end

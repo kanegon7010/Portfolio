@@ -20,7 +20,7 @@
 #
 FactoryBot.define do
   factory :entry do
-    user { nil }
-    room { nil }
+    user
+    room
   end
 end

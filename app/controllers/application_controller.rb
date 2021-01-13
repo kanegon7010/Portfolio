@@ -45,4 +45,25 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
+    def follow_for_follow?(otheruser_id)
+      users = User.eager_load(:following_relationships,:followings,:follower_relationships,:followers).where(id: current_user.id)
+      users.each do |cu|
+        cu.followings.each do |ou|
+          if ou.id == otheruser_id
+            @following = true
+          end
+        end
+        cu.followers.each do |ou|
+          if ou.id == otheruser_id
+            @follower = true
+          end
+        end
+      end
+      if @following && @follower
+        true
+      else
+        false
+      end
+    end
 end
