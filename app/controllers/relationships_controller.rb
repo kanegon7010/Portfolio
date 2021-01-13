@@ -4,6 +4,7 @@ class RelationshipsController < ApplicationController
   def create
     @user =User.find(params[:relationship][:following_id])
     current_user.follow(@user)
+    room_make_check(@user)
     respond_to do |format|
         format.html {redirect_back(fallback_location: root_url)}
         format.js
@@ -13,6 +14,7 @@ class RelationshipsController < ApplicationController
   def destroy
     @user = User.find(params[:relationship][:following_id])
     current_user.unfollow(@user)
+    room_make_check(@user)
     respond_to do |format|
         format.html {redirect_back(fallback_location: root_url)}
         format.js

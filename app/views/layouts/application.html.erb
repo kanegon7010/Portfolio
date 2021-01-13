@@ -20,6 +20,7 @@
       <li><a href="/users/<%= current_user.id %>/cv/new">履歴書作成</a></li>
       <li><a href="/users/<%= current_user.id %>/cv/edit">履歴書編集</a></li>
       <li><a href="/users/<%= current_user.id %>/cv">履歴書</a></li>
+      <li><%= link_to 'DM一覧', rooms_path %></li>
       <li><%= link_to 'ユーザー一覧', users_path %></li>
       <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
     <% else %>
