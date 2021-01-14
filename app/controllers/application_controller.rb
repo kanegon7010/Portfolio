@@ -38,28 +38,15 @@ class ApplicationController < ActionController::Base
             end
           end
         end
-        if @isRoom
-        else
-          @room = Room.new
-          @entry = Entry.new
-        end
+      else
+        redirect_back(fallback_location: user_path(otheruser))
       end
     end
 
     def follow_for_follow?(otheruser_id)
-      users = User.eager_load(:following_relationships,:followings,:follower_relationships,:followers).where(id: current_user.id)
-      users.each do |cu|
-        cu.followings.each do |ou|
-          if ou.id == otheruser_id
-            @following = true
-          end
-        end
-        cu.followers.each do |ou|
-          if ou.id == otheruser_id
-            @follower = true
-          end
-        end
-      end
+      otheruser = User.find(otheruser_id)
+      @following = current_user.following?(otheruser)
+      @follower = otheruser.following?(current_user)
       if @following && @follower
         true
       else

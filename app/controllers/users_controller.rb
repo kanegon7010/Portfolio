@@ -8,6 +8,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     room_make_check(@user)
+    if @isRoom
+    else
+      @room = Room.new
+      @entry = Entry.new
+    end
   end  
 
   def followings

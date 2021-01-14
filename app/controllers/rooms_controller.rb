@@ -24,27 +24,14 @@ class RoomsController < ApplicationController
   def create
     @otheruser = User.find(params[:user_id])
     if follow_for_follow?(@otheruser.id)
-      currentUserEntry = Entry.where(user_id: current_user.id)
-      otherUserEntry = Entry.where(user_id: @otheruser.id)
-      unless @otheruser.id == current_user.id
-        currentUserEntry.each do |cu|
-          otherUserEntry.each do |u|
-            if cu.room_id == u.room_id then
-              @isRoom = true
-              @roomId = cu.room_id
-            end
-          end
-        end
-        if @isRoom
-          redirect_to room_path(@roomId)
-        else
-          room = Room.create
-          entry1 = Entry.create(room_id: room.id, user_id: current_user.id)
-          entry2 = Entry.create(params.permit(:user_id).merge(room_id: room.id))
-          redirect_to room_path(room.id)
-        end
+      room_make_check(@otheruser)
+      if @isRoom
+        redirect_to room_path(@roomId)
       else
-        redirect_back(fallback_location: user_path(otheruser))
+        room = Room.create
+        entry1 = Entry.create(room_id: room.id, user_id: current_user.id)
+        entry2 = Entry.create(params.permit(:user_id).merge(room_id: room.id))
+        redirect_to room_path(room.id)
       end
     else
       redirect_to root_path 
