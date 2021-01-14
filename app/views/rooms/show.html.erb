@@ -1,0 +1,32 @@
+<h1>Rooms#show</h1>
+<p>Find me in app/views/rooms/show.html.erb</p>
+
+
+<h4 class="rooms-title">DMの相手</h4>
+<% @entries.each do |e| %>
+  <% if e.user_id != current_user.id %>
+    <div class="user-name">
+    <strong>
+      <%#= image_tag e.user.avatar, class:"user-image" %>
+        <a class="rooms-user-link" href="/users/<%= e.user.id %>">
+          <%= e.user.username %>さん
+        </a>
+    </strong>
+    </div>
+  <% end %>
+<% end %>
+<hr>
+<div class="chats">
+  <div class="chat" id="chat_box_wrap">
+    <% if @messages.present? %>
+      <%= render "chatbox", messages: @messages %>
+    <% end %>
+  </div>
+  <div class="posts">
+    <%= form_with model: @message do |f| %>
+      <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+          <%= f.submit "投稿",class: 'form-submit'%>
+    <% end %>
+  </div>
+</div>

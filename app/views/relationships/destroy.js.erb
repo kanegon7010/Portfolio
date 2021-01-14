@@ -1,3 +1,10 @@
 document.getElementById("follow_form_<%= @user.id %>").innerHTML = "<%= escape_javascript( render partial: "users/follow", locals: { user: @user }) %>";
-document.getElementById("rscounter_<%= @user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: @user })) %>";
-document.getElementById("rscounter_<%= current_user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: current_user })) %>";
+if (document.getElementById("rscounter_<%= @user.id %>") != null)  {
+  document.getElementById("rscounter_<%= @user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: @user })) %>";
+}
+if (document.getElementById("rscounter_<%= current_user.id %>") != null) {
+  document.getElementById("rscounter_<%= current_user.id %>").innerHTML = "<%= j(render( partial: "users/relationshipcounter", locals: { user: current_user })) %>";
+}
+if (document.getElementById("dm_wrapper")!= null) {
+  document.getElementById("dm_wrapper").innerHTML = "<%= j(render( partial: "users/dm")) %>";
+}

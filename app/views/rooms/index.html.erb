@@ -1,0 +1,5 @@
+<ul>
+  <% @others.each do |other| %>
+    <li><%= link_to other.user.username, room_path(other.room_id ) %></li>
+  <% end %>
+</ul>

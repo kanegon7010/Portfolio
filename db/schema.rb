@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_090238) do
+ActiveRecord::Schema.define(version: 2021_01_12_100402) do
 
   create_table "cvs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -19,6 +19,25 @@ ActiveRecord::Schema.define(version: 2021_01_09_090238) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_cvs_on_user_id", unique: true
+  end
+
+  create_table "entries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "objectives", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -47,6 +66,11 @@ ActiveRecord::Schema.define(version: 2021_01_09_090238) do
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
     t.index ["following_id"], name: "index_relationships_on_following_id"
+  end
+
+  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "skills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -92,6 +116,10 @@ ActiveRecord::Schema.define(version: 2021_01_09_090238) do
   end
 
   add_foreign_key "cvs", "users"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "entries", "users"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "objectives", "cvs"
   add_foreign_key "qualifications", "cvs"
   add_foreign_key "relationships", "users", column: "follower_id"

@@ -24,5 +24,33 @@ class ApplicationController < ActionController::Base
         flash[:notice] = "不正な入力です。"
         redirect_to root_path
       end
-    end    
+    end 
+    
+    def room_make_check(otheruser)
+      currentUserEntry = Entry.where(user_id: current_user.id)
+      userEntry = Entry.where(user_id: otheruser.id)
+      unless otheruser.id == current_user.id
+        currentUserEntry.each do |cu|
+          userEntry.each do |u|
+            if cu.room_id == u.room_id then
+              @isRoom = true
+              @roomId = cu.room_id
+            end
+          end
+        end
+      else
+        redirect_back(fallback_location: user_path(otheruser))
+      end
+    end
+
+    def follow_for_follow?(otheruser_id)
+      otheruser = User.find(otheruser_id)
+      @following = current_user.following?(otheruser)
+      @follower = otheruser.following?(current_user)
+      if @following && @follower
+        true
+      else
+        false
+      end
+    end
 end

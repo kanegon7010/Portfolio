@@ -171,6 +171,26 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'Entryとのアソシエーション' do
+      let(:target) { :entries }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Entryと関連していること' do
+         expect(association.class_name).to eq 'Entry' 
+      end
+    end
+
+    context 'Messageとのアソシエーション' do
+      let(:target) { :messages }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Messageと関連していること' do
+         expect(association.class_name).to eq 'Message' 
+      end
+    end
+
     context 'Cvとのアソシエーション' do
       let(:target) { :cv }
       it 'has_one（1対1）になっていること' do
