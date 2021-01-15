@@ -48,3 +48,18 @@
     <td align="left"><%= @user.updated_at %></td>
   </tr>
 </table>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="micropost_form_wrap" id="micropost_form_wrap">
+      <%= render 'shared/micropost_form', micropost: @micropost %>
+    </section>
+  </aside> 
+  <div class="col-md-8">
+    <% if @user.microposts.any? %>
+      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <ol class="feed_microposts_wrap" id="feed_microposts_wrap">
+        <%= render @microposts %>
+      </ol>
+    <% end %>
+  </div>
+</div>

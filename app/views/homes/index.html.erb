@@ -2,4 +2,16 @@
 <h1>Homes#index</h1>
 <p>Find me in app/views/homes/index.html.erb</p>
 
-
+<% if user_signed_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="micropost_form_wrap" id="micropost_form_wrap">
+        <%= render 'shared/micropost_form', micropost: @micropost %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% end %>

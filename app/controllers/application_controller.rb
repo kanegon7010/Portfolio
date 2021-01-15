@@ -38,8 +38,6 @@ class ApplicationController < ActionController::Base
             end
           end
         end
-      else
-        redirect_back(fallback_location: user_path(otheruser))
       end
     end
 
