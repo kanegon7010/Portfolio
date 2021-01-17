@@ -20,5 +20,40 @@
 require 'rails_helper'
 
 RSpec.describe Micropost, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'replying_relationships（reply_relationships）とのアソシエーション' do
+      let(:target) { :replying_relationships }
+      it 'has_one（1対1）になっていること' do
+         expect(association.macro).to eq :has_one
+      end
+      it 'ReplyRelationshipと関連していること' do
+         expect(association.class_name).to eq 'ReplyRelationship' 
+      end
+    end
+
+    context 'replied_relationships（reply_relationships）とのアソシエーション' do
+      let(:target) { :replied_relationships }
+      it 'has_many（1対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'ReplyRelationshipと関連していること' do
+         expect(association.class_name).to eq 'ReplyRelationship' 
+      end
+    end
+
+    context 'Userとのアソシエーション' do
+      let(:target) { :user }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Userと関連していること' do
+         expect(association.class_name).to eq 'User' 
+      end
+    end
+    
+  end
 end

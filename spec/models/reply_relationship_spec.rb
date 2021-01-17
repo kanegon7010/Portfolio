@@ -21,5 +21,30 @@
 require 'rails_helper'
 
 RSpec.describe ReplyRelationship, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'Association' do
+    let(:association) do
+      described_class.reflect_on_association(target)
+    end
+
+    context 'replying（Micropostモデル）とのアソシエーション' do
+      let(:target) { :main_micropost }
+      it 'belong_to（１対多）になっていること' do
+        expect(association.macro).to eq :belongs_to 
+      end
+      it 'Micropost（replying)と関連していること' do
+        expect(association.class_name).to eq 'Micropost' 
+      end
+    end
+
+    context 'replied（Micropostモデル）とのアソシエーション' do
+      let(:target) { :reply_micropost }
+      it 'belong_to（１対多）になっていること' do
+        expect(association.macro).to eq :belongs_to 
+      end
+      it 'Micropost（replied)と関連していること' do
+        expect(association.class_name).to eq 'Micropost'  
+      end
+    end
+  end
 end
