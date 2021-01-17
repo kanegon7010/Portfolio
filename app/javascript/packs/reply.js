@@ -14,6 +14,7 @@
         // replyする投稿を投稿フォームの上にコピーする。
         var main_micropost_block = document.getElementById( 'micropost-' + main_micropost_id );
         var clone_main_micropost = main_micropost_block.cloneNode(true);
+        clone_main_micropost.removeChild(clone_main_micropost.childNodes.item(7));
         clone_main_micropost.id = 'disp_micropost';
 
         var appended_disp_div = document.createElement('div');
@@ -57,9 +58,6 @@
           appended_disp_wrap = document.getElementById('appended_disp_wrap');
           appended_disp_wrap.appendChild(reply_cancel_buttton);
           appended_disp_wrap.appendChild(clone_main_micropost);
-
-          appended_disp_post = document.getElementById('disp_micropost');
-          appended_disp_post.removeChild(document.getElementById('micropost_buttons_wrap'));
 
           reply_cancel_buttton = document.getElementById('reply_cancel_buttton');
           reply_cancel_buttton.addEventListener('click', () => replyCancel());

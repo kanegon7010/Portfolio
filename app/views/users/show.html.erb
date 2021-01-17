@@ -52,13 +52,6 @@
   </tr>
 </table>
 <div class="row">
-  <% if @user.id == current_user.id %>
-    <aside class="col-md-4">
-      <section class="micropost_form_wrap" id="micropost_form_wrap">
-        <%= render 'shared/micropost_form', micropost: @micropost %>
-      </section>
-    </aside> 
-  <% end %>
   <div class="col-md-8">
     <% if @microposts.any? %>
       <h3>Microposts (<%= @microposts.count %>)</h3>
@@ -69,5 +62,13 @@
       <h3>Microposts</h3>
       <ol class="feed_microposts_wrap" id="feed_microposts_wrap"></ol>
     <% end %>
+
+  <aside class="col-md-4">
+    <section class="micropost_form_wrap" id="micropost_form_wrap">
+      <%= render 'shared/micropost_form', micropost: @micropost %>
+    </section>
+  </aside> 
   </div>
 </div>
+
+<%= javascript_pack_tag 'reply' %>
