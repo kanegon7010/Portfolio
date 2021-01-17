@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_100402) do
+ActiveRecord::Schema.define(version: 2021_01_15_124900) do
 
   create_table "cvs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2021_01_12_100402) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_microposts_on_user_id"
+  end
+
   create_table "objectives", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "cv_id", null: false
     t.string "name"
@@ -66,6 +75,15 @@ ActiveRecord::Schema.define(version: 2021_01_12_100402) do
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
     t.index ["following_id"], name: "index_relationships_on_following_id"
+  end
+
+  create_table "reply_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "main_micropost_id"
+    t.bigint "reply_micropost_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["main_micropost_id"], name: "index_reply_relationships_on_main_micropost_id"
+    t.index ["reply_micropost_id"], name: "index_reply_relationships_on_reply_micropost_id"
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -120,10 +138,13 @@ ActiveRecord::Schema.define(version: 2021_01_12_100402) do
   add_foreign_key "entries", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "microposts", "users"
   add_foreign_key "objectives", "cvs"
   add_foreign_key "qualifications", "cvs"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "relationships", "users", column: "following_id"
+  add_foreign_key "reply_relationships", "microposts", column: "main_micropost_id"
+  add_foreign_key "reply_relationships", "microposts", column: "reply_micropost_id"
   add_foreign_key "skills", "cvs"
   add_foreign_key "summaries", "cvs"
   add_foreign_key "work_experiences", "cvs"

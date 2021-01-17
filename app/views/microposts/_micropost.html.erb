@@ -1,0 +1,15 @@
+<li id="micropost-<%= micropost.id %>">
+  <span class="user"><%= link_to micropost.user.username, micropost.user %>&nbsp;@<%= micropost.user.service_id %></span>
+  <span class="content"><%= micropost.content %></span>
+  <span class="timestamp">
+    ・<%= time_ago_in_words(micropost.created_at) %></span>
+  <div class="micropost_buttons_wrap" id="micropost_buttons_wrap">
+    <%= link_to "リプライ数(#{micropost.replied.size})", micropost_path(micropost.id), class: "nav-link" %>
+    <% if micropost.user.id == current_user.id %>
+      <%= form_with model: micropost, method: :delete, data: { confirm: "選択した投稿を削除してもよろしいでしょうか？" } do |f| %>
+        <%= f.submit "削除",class: 'form-submit' %>
+      <% end %>
+    <% end %>
+    <button class="Reply_micropost" id="Reply_micropost_<%= micropost.id %>">Reply</button>
+  </div>
+</li>

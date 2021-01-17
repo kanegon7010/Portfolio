@@ -2,11 +2,7 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :create]
 
   def index
-    rooms = []
-    entries = Entry.where(user_id: current_user.id)
-    entries.each do |entry|
-      rooms.push(entry.room_id)
-    end
+    rooms = Entry.select("room_id").where(user_id: current_user.id)
     @others = Entry.eager_load(:user).where(room_id: rooms).where.not(user_id: current_user.id)
   end
 

@@ -30,6 +30,7 @@ class User < ApplicationRecord
   has_many :followings, through: :following_relationships
   has_many :follower_relationships,foreign_key: "following_id",class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :follower_relationships
+  has_many :microposts, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
@@ -50,9 +51,18 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
 
+  def feed
+    following_ids_subselect = "SELECT following_id FROM relationships 
+                      WHERE follower_id = :user_id"
+    Micropost.eager_load(:user).where("user_id IN (#{following_ids_subselect}) OR user_id = :user_id",
+                  user_id: id)
+  end
+
   #ユーザーをフォローする
   def follow(other_user)
-    self.following_relationships.create(following_id: other_user.id)
+    unless self == other_user.id
+      self.following_relationships.find_or_create_by(following_id: other_user.id)
+    end
   end
 
   #ユーザーのフォローを解除する

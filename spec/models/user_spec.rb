@@ -173,7 +173,7 @@ RSpec.describe User, type: :model do
 
     context 'Entryとのアソシエーション' do
       let(:target) { :entries }
-      it 'belong_to（１対多）になっていること' do
+      it 'has_many（１対多）になっていること' do
          expect(association.macro).to eq :has_many
       end
       it 'Entryと関連していること' do
@@ -183,11 +183,21 @@ RSpec.describe User, type: :model do
 
     context 'Messageとのアソシエーション' do
       let(:target) { :messages }
-      it 'belong_to（１対多）になっていること' do
+      it 'has_many（１対多）になっていること' do
          expect(association.macro).to eq :has_many
       end
       it 'Messageと関連していること' do
          expect(association.class_name).to eq 'Message' 
+      end
+    end
+
+    context 'Micropostとのアソシエーション' do
+      let(:target) { :microposts }
+      it 'has_many（１対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Micropostと関連していること' do
+         expect(association.class_name).to eq 'Micropost' 
       end
     end
 
