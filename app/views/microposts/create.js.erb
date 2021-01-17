@@ -1,2 +1,8 @@
 document.getElementById("feed_microposts_wrap").innerHTML = "<%= j(render( partial: 'micropost', collection: @feed_microposts)) %>";
+if (document.getElementById('appended_disp_wrap') != null ) {
+  document.getElementById('appended_disp_wrap').remove();
+}
+if (document.getElementById('reply_relationship[main_micropost_id]') != null ){
+  document.getElementById('reply_relationship[main_micropost_id]').remove();
+}
 document.getElementById("micropost_content").value = "";

@@ -22,4 +22,10 @@ class Micropost < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 160 }
+
+  has_one :replying_relationships, foreign_key: 'reply_micropost_id', class_name: 'ReplyRelationship', dependent: :destroy
+  has_one :replying, through: :replying_relationships, source: :main_micropost
+  has_many :replied_relationships, foreign_key: 'main_micropost_id', class_name: 'ReplyRelationship', dependent: :destroy
+  has_many :replied, through: :replied_relationships, source: :reply_micropost
+
 end

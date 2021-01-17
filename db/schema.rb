@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_044939) do
+ActiveRecord::Schema.define(version: 2021_01_15_124900) do
 
   create_table "cvs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 2021_01_14_044939) do
     t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
+  create_table "reply_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "main_micropost_id"
+    t.bigint "reply_micropost_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["main_micropost_id"], name: "index_reply_relationships_on_main_micropost_id"
+    t.index ["reply_micropost_id"], name: "index_reply_relationships_on_reply_micropost_id"
+  end
+
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -134,6 +143,8 @@ ActiveRecord::Schema.define(version: 2021_01_14_044939) do
   add_foreign_key "qualifications", "cvs"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "relationships", "users", column: "following_id"
+  add_foreign_key "reply_relationships", "microposts", column: "main_micropost_id"
+  add_foreign_key "reply_relationships", "microposts", column: "reply_micropost_id"
   add_foreign_key "skills", "cvs"
   add_foreign_key "summaries", "cvs"
   add_foreign_key "work_experiences", "cvs"

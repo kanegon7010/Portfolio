@@ -2,11 +2,14 @@
 <p>Find me in app/views/users/show.html.erb</p>
 
 <% provide(:title, @user.username) %>
-<h1>My page (<%= @user.username %>)</h1>
+
 
 <% if @user.id == current_user.id %>
+  <h1>My page (<%= @user.username %>)</h1>
   <li><%= link_to 'アカウントの編集', edit_user_registration_path %></li>
   <li><%= link_to 'アカウントの削除', user_registration_path, method: :delete %></li>
+<% else %>
+  <h1>User page (<%= @user.username %>)</h1>
 <% end %>
 
 <div id="rscounter_<%= @user.id %>">
@@ -49,17 +52,22 @@
   </tr>
 </table>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="micropost_form_wrap" id="micropost_form_wrap">
-      <%= render 'shared/micropost_form', micropost: @micropost %>
-    </section>
-  </aside> 
+  <% if @user.id == current_user.id %>
+    <aside class="col-md-4">
+      <section class="micropost_form_wrap" id="micropost_form_wrap">
+        <%= render 'shared/micropost_form', micropost: @micropost %>
+      </section>
+    </aside> 
+  <% end %>
   <div class="col-md-8">
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+    <% if @microposts.any? %>
+      <h3>Microposts (<%= @microposts.count %>)</h3>
       <ol class="feed_microposts_wrap" id="feed_microposts_wrap">
         <%= render @microposts %>
       </ol>
+    <% else %>
+      <h3>Microposts</h3>
+      <ol class="feed_microposts_wrap" id="feed_microposts_wrap"></ol>
     <% end %>
   </div>
 </div>

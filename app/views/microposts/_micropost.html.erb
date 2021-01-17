@@ -3,9 +3,12 @@
   <span class="content"><%= micropost.content %></span>
   <span class="timestamp">
     ・<%= time_ago_in_words(micropost.created_at) %></span>
-  <% if micropost.user.id == current_user.id %>
-    <%= form_with model: micropost, method: :delete, data: { confirm: "選択した投稿を削除してもよろしいでしょうか？" } do |f| %>
-      <%= f.submit "削除",class: 'form-submit' %>
+  <div class="micropost_buttons_wrap" id="micropost_buttons_wrap">
+    <% if micropost.user.id == current_user.id %>
+      <%= form_with model: micropost, method: :delete, data: { confirm: "選択した投稿を削除してもよろしいでしょうか？" } do |f| %>
+        <%= f.submit "削除",class: 'form-submit' %>
+      <% end %>
     <% end %>
-  <% end %>
+    <button class="Reply_micropost" id="Reply_micropost_<%= micropost.id %>">Reply</button>
+  </div>
 </li>
