@@ -4,14 +4,25 @@
     <%= link_to room_path(other.room_id ) do %>
       <div class="bg-white flex items-center p-2 rounded-xl shadow border">
         <div class="flex items-center space-x-4">
-          <img src="https://avatars2.githubusercontent.com/u/1490347?s=460&u=39d7a6b9bc030244e2c509119e5f64eabb2b1727&v=4" alt="My profile" class="w-16 h-16 rounded-full">
+          <% if other.user.avatar? %>
+            <%= image_tag other.user.avatar.thumb50.url, class: "w-16 h-16 rounded-full" %>
+          <% else %>
+            <%= image_tag "/assets/default.png", :size => '100x100', class: "w-16 h-16 rounded-full border border-gray-400" %>
+          <% end %>
         </div>
         <div class="flex-grow p-3">
           <div class="font-semibold text-gray-700">
             <%= other.user.username %>
           </div>
           <div class="text-sm text-gray-500">
-            You: Thanks, sounds good! . 8hr
+            <% last_message = Message.where(room_id: other.room_id, user_id: other.user_id).or(Message.where(room_id: other.room_id, user_id: current_user.id)).last %>
+            <% if last_message.user_id == current_user.id %>
+              <% last_message = 'You :  ' + last_message.message %>
+            <% else %>
+              <% last_message = other.user.username + ' :  ' + last_message.message %>
+            <% end %>
+            <% last_message = last_message[0..40] + '...' if last_message.length > 40 %>
+            <%= last_message %>
           </div>
         </div>
       </div>
