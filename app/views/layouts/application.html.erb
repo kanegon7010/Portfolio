@@ -5,30 +5,26 @@
     <title><%= yield(:title) || 'Portfolio' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <li><%= link_to 'ホーム', root_path %></li>
-    <% if user_signed_in? %>
-      <li><a href="/users/<%= current_user.id %>">マイページ</a></li>
-      <li><a href="/users/<%= current_user.id %>/cv/new">履歴書作成</a></li>
-      <li><a href="/users/<%= current_user.id %>/cv/edit">履歴書編集</a></li>
-      <li><a href="/users/<%= current_user.id %>/cv">履歴書</a></li>
-      <li><%= link_to 'DM一覧', rooms_path %></li>
-      <li><%= link_to 'ユーザー一覧', users_path %></li>
-      <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-    <% else %>
-      <li><%= link_to '新規登録', new_user_registration_path %></li>
-      <li><%= link_to 'ログイン', new_user_session_path %></li>
-      <li><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></li>
-    <% end %>
-
-    <%= yield %>
+  <body class="sidebar">
+    <%= render 'shared/flash_messages' %>
+    <div class="flex items-baseline">
+      <% if user_signed_in? %>
+        <div class="sticky top-0 flex-shrink-0 w-auto max-w-xs bg-gray-800 w-3/12">
+          <%= render 'shared/login_navigation' %>
+        </div> 
+      <% else %>
+        <div class="sticky top-0 flex-shrink-0 w-auto max-w-xs bg-gray-800 w-3/12">
+          <%= render 'shared/logout_navigation' %>
+        </div>
+      <% end %>
+      <div class="self-stretch w-9/12">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

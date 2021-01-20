@@ -1,21 +1,33 @@
-<h1>Cvs#edit</h1>
-<p>Find me in app/views/cvs/edit.html.erb</p>
+<div class="max-w-2xl md:w-3/4 py-4 mx-auto">
+  <div class="my-4 font-medium">Cvs#edit</div>
 
-<%= form_with model: @cv, url: cv_path do |f| %>
-    <div class="form-group">
-        <%= f.label :education, '最終学歴' %>
-        <%= f.text_field :education, class: 'form-control'%>
+  <%= form_with model: @cv, url: cv_path do |f| %>
+    <div class="my-2">
+      <%= f.label :education, '最終学歴', class: "block" %>
+      <div class="flex">
+        <%= f.text_field :education, class: "w-full bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
+                      py-2 px-3 mb-3 font-medium focus:outline-none focus:bg-white"%>
+        <div class="flex flex-col w-2/12 place-content-center mx-2 mb-3" >
+          <div>
+            <%= f.label :display, "表示する", class: "" %>
+            <%= f.check_box :display, class: "" %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-        <%= f.label :display, '公開する' %>
-        <%= f.check_box :display, class: 'form-control'%>
+    <div class="my-2">
+      <%= f.label :display, '公開する' %>
+      <%= f.check_box :display, class: 'form-control'%>
     </div>
     <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :objectives, column: :name, f: f, type: :edit } %>
     <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :summaries, column: :name, f: f, type: :edit } %>
     <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :skills, column: :name, f: f, type: :edit } %>
     <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :work_experiences, column: :description, f: f, type: :edit } %>
     <%= render partial: 'form_field' , locals: { cv: @cv, modelname: :qualifications, column: :name, f: f, type: :edit } %>
-    <%= f.submit '保存', class: 'btn btn-primary' %>
-<% end %>
+    <div class="text-center">
+      <%= f.submit '保存', class: 'my-2 base_button px-8 bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500' %>
+    </div>
+  <% end %>
+</div>
 
 <%= javascript_pack_tag 'cv/application' %>

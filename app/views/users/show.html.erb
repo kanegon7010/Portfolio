@@ -1,74 +1,26 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
 <% provide(:title, @user.username) %>
 
-
-<% if @user.id == current_user.id %>
-  <h1>My page (<%= @user.username %>)</h1>
-  <li><%= link_to 'アカウントの編集', edit_user_registration_path %></li>
-  <li><%= link_to 'アカウントの削除', user_registration_path, method: :delete %></li>
-<% else %>
-  <h1>User page (<%= @user.username %>)</h1>
-<% end %>
-
-<div id="rscounter_<%= @user.id %>">
-  <%= render "relationshipcounter", user: @user %>
-</div>
-<div id="follow_form_<%= @user.id %>">
-  <% if user_signed_in? && @user != current_user%>
-    <% if current_user.following?(@user) %>
-      <%= render "unfollow", user: @user %>
-    <% else %>
-      <%= render "follow", user: @user %>
-    <% end %>
-  <% end %>
-</div>
-
-<div id="dm_wrapper">
-  <%= render "dm" %>
-</div>
-
-<table class="outline fadeInUp">
-  <tr>
-    <th>ユーザーID</th>
-    <td align="left"><%= @user.service_id %></td>
-  </tr>
-  <tr>
-    <th>ユーザー名</th>
-    <td align="left"><%= @user.username %></td>
-  </tr>
-  <tr>
-    <th>メールアドレス</th>
-    <td align="left"><%= @user.email %></td>
-  </tr>
-  <tr>
-    <th>作成日</th>
-    <td align="left"><%= @user.created_at %></td>
-  </tr>
-  <tr>
-    <th>更新日</th>
-    <td align="left"><%= @user.updated_at %></td>
-  </tr>
-</table>
-<div class="row">
-  <div class="col-md-8">
-    <% if @microposts.any? %>
-      <h3>Microposts (<%= @microposts.count %>)</h3>
-      <ol class="feed_microposts_wrap" id="feed_microposts_wrap">
-        <%= render @microposts %>
-      </ol>
-    <% else %>
-      <h3>Microposts</h3>
-      <ol class="feed_microposts_wrap" id="feed_microposts_wrap"></ol>
-    <% end %>
-
-  <aside class="col-md-4">
-    <section class="micropost_form_wrap" id="micropost_form_wrap">
-      <%= render 'shared/micropost_form', micropost: @micropost %>
-    </section>
-  </aside> 
+<div class="py-4 mx-auto px-4 sm:ml-0 sm:pl-0 sm:mr-auto sm:pr-4">
+  <div class="px-4 my-4 font-medium">Users#show</div>
+  <div class="flex items-baseline">
+    <div class="flex-1 mr-2 max-w-lg">
+      <%= render "profile_card", user: @user %>
+      <% if @microposts.any? %>
+        <h3>Microposts (<%= @microposts.count %>)</h3>
+        <ol class="feed_microposts_wrap" id="feed_microposts_wrap">
+          <%= render @microposts %>
+        </ol>
+      <% else %>
+        <h3>Microposts</h3>
+        <ol class="feed_microposts_wrap" id="feed_microposts_wrap"></ol>
+      <% end %>
+    </div> 
+    <div class="flex-1 sticky top-40 ">
+      <div class="mx-autoshadow-lg max-w-lg bg-white px-3 pt-3 pb-3 border border-b-0 rounded-t-xl " >投稿フォーム
+      </div>
+      <%= render "shared/micropost_form", micropost: @micropost %>
+    </div>
   </div>
 </div>
 
-<%= javascript_pack_tag 'reply' %>
+<%= javascript_pack_tag "reply" %>

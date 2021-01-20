@@ -1,6 +1,27 @@
-<%= form_with model: micropost do |f| %>
-  <div class="micropost_form_field" id="micropost_form_field" >
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
-  </div>
-  <%= f.submit "Post", class: "btn btn-primary" %>
-<% end %>
+<div id="micropost_form_wrap">
+  <%= form_with model: micropost do |f| %>
+    <div class="max-w-lg mb-4 bg-white items-center justify-center shadow-lg rounded-b-xl border border-t-0 ">
+      <form class="w-full max-w-xl rounded-lg px-4 pt-2">
+        <div class=" flex-wrap px-3 pt-3 pb-3">
+          <div class="w-full md:w-full mb-2 mt-2">
+            <div id="micropost_form_field" class="micropost_form_field" >
+              <%= f.text_area :content, placeholder: "Compose new micropost...",
+                class: "bg-gray-100 rounded border border-gray-400 leading-normal resize-none
+                  w-full h-24 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none 
+                  focus:bg-white" %>
+            </div>
+          </div>
+          <div class="w-full md:w-full flex items-start md:w-full ">
+            <div class="text-gray-700  ml-auto">
+              <div class="text-xs md:text-sm">
+              </div>
+              <div class="">
+                <%= f.submit "Post", class: "base_button text-sm bg-white hover:bg-gray-100 text-gray-700 border-gray-400 mr-1"  %>     
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  <% end %> 
+</div>

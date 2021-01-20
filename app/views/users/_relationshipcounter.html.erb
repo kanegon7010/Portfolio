@@ -1,2 +1,13 @@
-<%= link_to "フォロー(#{user.followings.size})", followings_user_path(user), class: "nav-link" %>
-<%= link_to "フォロワー(#{user.followers.size})", followers_user_path(user), class: "nav-link" %>
+<div
+  class="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid">
+  <%= link_to followings_user_path(user) do %>
+    <span class="text-center px-2"><span class="font-bold text-gray-500"><%= user.followings.size %></span>
+      <span class="text-gray-500"> following</span>
+    </span>
+  <% end %>
+  <%= link_to followers_user_path(user) do %>
+    <span class="text-center px-2"><span class="font-bold text-gray-500"><%= user.followers.size %></span>
+      <span class="text-gray-500"> followers</span>
+    </span>
+  <% end %>
+</div>

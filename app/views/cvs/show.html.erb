@@ -1,65 +1,87 @@
-<h1>Cvs#show</h1>
-<p>Find me in app/views/cvs/show.html.erb</p>
+<div class="max-w-2xl w-full md:w-3/4 py-4 mx-auto">
+  <div class="">
+    <div class="my-4 font-medium">Cvs#show
+    </div>
 
-<% @cv.each do |cv| %>
-    <% if cv.display == true %>
-        <table class="outline fadeInUp">
-            <tr>
-                <th>名前</th>
-                <td align="left"><%= cv.user.username %></td>
+    <% if @cv_present == true %>
+      <% if @user.id == current_user.id %>
+        <%= link_to 'CVの編集', edit_cv_path(@user) ,
+          class: "base_button bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500" %>
+      <% end %>
+      <% @cv.each do |cv| %>
+        <% if cv.display == true %>
+          <table class="w-full border-collapse">
+            <tr class="border-b border-grey-light">
+              <td class="w-3/12 py-4 px-6">名前</td>
+              <td class="py-4 px-6"><%= cv.user.username %></td>
             </tr>
-            <tr>
-                <th>EMAIL</th>
-                <td align="left"><%= cv.user.email %></td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">EMAIL</td>
+              <td class="py-4 px-6"><%= cv.user.email %></td>
             </tr>
-            <tr>
-                <th>希望職種</th>
-                <td align="left">
-                    <% cv.objectives.each do |objective| %>
-                        <% if objective.display == true %>
-                            <div><%= objective.name %></div>
-                        <% end %>
-                    <% end %>
-                </td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6 ">希望職種</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+                <% cv.objectives.each do |objective| %>
+                  <% if objective.display == true %>
+                    <span><%= objective.name %></span>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
-            <tr>
-                <th>サマリ</th>
-                <td align="left">
-                    <% cv.summaries.each do |summary| %>
-                        <div><%= summary.name %></div>
-                    <% end %>
-                </td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">サマリ</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+                <% cv.summaries.each do |summary| %>
+                  <% if summary.display == true %>
+                    <span><%= summary.name %></span>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
-            <tr>
-                <th>スキル</th>
-                <td align="left">
-                    <% cv.skills.each do |skill| %>
-                        <div><%= skill.name %></div>
-                    <% end %>
-                </td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">スキル</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+                <% cv.skills.each do |skill| %>
+                  <% if skill.display == true %>
+                    <span><%= skill.name %></span>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
-            <tr>
-                <th>職歴</th>
-                <td align="left">
-                    <% cv.work_experiences.each do |work_experience| %>
-                        <div><%= work_experience.description %></div>
-                    <% end %>
-                </td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">職歴</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+                <% cv.work_experiences.each do |work_experience| %>
+                <% if work_experience.display == true %>
+                    <span><%= work_experience.description %></span>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
-            <tr>
-                <th>資格</th>
-                <td align="left">
-                    <% cv.qualifications.each do |qualification| %>
-                        <div><%= qualification.name %></div>
-                    <% end %>
-                </td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">資格</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+                <% cv.qualifications.each do |qualification| %>
+                  <% if qualification.display == true %>
+                    <span><%= qualification.name %></span>
+                  <% end %>
+                <% end %>
+              </td>
             </tr>
-            <tr>
-                <th>最終学歴</th>
-                <td align="left"><%= cv.education %></td>
+            <tr class="border-b border-grey-light">
+              <td class="py-4 px-6">最終学歴</td>
+              <td class="py-4 px-6 "><%= cv.education %></td>
             </tr>
-        </table>
+          </table>
+        <% else %>
+          <p>非公開に設定されているため閲覧することは出来ません</p>
+        <% end %>
+      <% end %>
     <% else %>
-        <p>非公開に設定されているため閲覧することは出来ません</p>
+      <div>CVがまだ作成されていません。以下のボタンから作成をしてください。</div>
+      <%= link_to 'CVの作成', new_cv_path(@user) ,
+        class: "base_button bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500" %>
     <% end %>
-<% end %>
+  </div>
+</div>
