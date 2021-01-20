@@ -1,5 +1,20 @@
-<ul>
+<div class="max-w-2xl md:w-3/4 py-4 mx-2">
+  <div class="px-4 my-4 font-medium">DM</div>
   <% @others.each do |other| %>
-    <li><%= link_to other.user.username, room_path(other.room_id ) %></li>
+    <%= link_to room_path(other.room_id ) do %>
+      <div class="bg-white flex items-center p-2 rounded-xl shadow border">
+        <div class="flex items-center space-x-4">
+          <img src="https://avatars2.githubusercontent.com/u/1490347?s=460&u=39d7a6b9bc030244e2c509119e5f64eabb2b1727&v=4" alt="My profile" class="w-16 h-16 rounded-full">
+        </div>
+        <div class="flex-grow p-3">
+          <div class="font-semibold text-gray-700">
+            <%= other.user.username %>
+          </div>
+          <div class="text-sm text-gray-500">
+            You: Thanks, sounds good! . 8hr
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+</div>

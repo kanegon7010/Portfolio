@@ -1,5 +1,5 @@
-<div class="col-md-8">
-  <h3>Micropost</h3>
+<div class="max-w-2xl md:w-3/4 py-4">
+  <div class="px-4 my-4 font-medium">Micropost</div>
   <div class="before_main_microposts">
     <%= render partial:'micropost', collection: @before_main_micropost_list, as: 'micropost' %>
   </div>
@@ -9,11 +9,9 @@
   <div class="reply_microposts">
     <%= render partial:'micropost', collection: @reply_microposts %>
   </div>
-  <aside class="col-md-4">
-      <section class="micropost_form_wrap" id="micropost_form_wrap">
-        <%= render 'shared/micropost_form', micropost: @micropost %>
-      </section>
-  </aside>
+  <div>
+    <%= render 'shared/micropost_form', micropost: @micropost %>
+  </div>
 </div>
 
 <%= javascript_pack_tag 'reply' %>

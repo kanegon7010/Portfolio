@@ -1,0 +1,55 @@
+<div class="max-w-lg">
+  <div class="bg-white border rounded-lg py-3">
+    <div class="photo-wrapper p-2">
+      <img class="w-32 h-32 rounded-full mx-auto"
+        src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe">
+    </div>
+    <div class="p-2">
+      <h3 class="text-center text-xl text-gray-900 font-medium leading-8"><%= user.username %></h3>
+      <div class="text-center text-gray-400 text-xs font-semibold">
+        <p>@<%= user.service_id %></p>
+      </div>
+      <div class="flex justify-end">
+        <div id="dm_wrapper" class="mx-1">
+          <%= render "dm" %>
+        </div>
+        <div id="follow_form_<%= user.id %>" class="text-center">
+          <% if user_signed_in? && user != current_user%>
+            <% if current_user.following?(user) %>
+              <%= render "unfollow", user: user %>
+            <% else %>
+              <%= render "follow", user: user %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <table class="text-xs my-3 mx-auto">
+        <tbody>
+          <tr>
+            <td class="px-2 py-2 text-gray-500 font-semibold">Email</td>
+            <td class="px-2 py-2"><%= user.email %></td>
+          </tr>
+          <tr>
+            <td class="px-2 py-2 text-gray-500 font-semibold">作成日</td>
+            <td class="px-2 py-2"><%= user.created_at %></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-center my-3">
+        <%= link_to 'View CV', cv_path(@user.id), class: "base_button text-base font-medium bg-indigo-600 text-white border-indigo-600 italic hover:text-white hover:bg-indigo-500" %>
+      </div>
+      <div id="follow_form_<%= user.id %>" class="text-center">
+        <% unless user_signed_in? && user != current_user%>
+          <%= link_to "アカウントの編集", edit_user_registration_path,
+            class: "base_button bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500" %>
+          <%= link_to "アカウントの削除", user_registration_path, method: :delete, data: { confirm: "アカウントを削除してもよろしいでしょうか？" },
+            class: "base_button bg-white text-red-500 hover:bg-red-500 hover:text-white border-red-500" %>
+        <% end %>
+      </div>
+      <div id="rscounter_<%= user.id %>">
+        <%= render "relationshipcounter", user: user %>
+      </div>
+    </div>
+  </div>
+</div>

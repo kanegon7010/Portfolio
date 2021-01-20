@@ -1,0 +1,23 @@
+<div class="bg-white flex flex-row items-center justify-between p-2 rounded-xl shadow border">
+  <%= link_to user_path(user) do %>
+    <div class="flex items-center ">
+      <div class="flex items-center space-x-4">
+        <img src="https://avatars2.githubusercontent.com/u/1490347?s=460&u=39d7a6b9bc030244e2c509119e5f64eabb2b1727&v=4" alt="My profile" class="w-16 h-16 rounded-full">
+      </div>
+      <div class="flex-grow p-3">
+        <div class="font-semibold text-gray-700">
+          <%= user.username %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if user_signed_in? && user != current_user%>
+    <div id="follow_form_<%= user.id %>" class="">
+      <% if current_user.following?(user) %>
+        <%= render "unfollow", user: user %>
+      <% else %>
+        <%= render "follow", user: user %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
