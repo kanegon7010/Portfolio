@@ -14,7 +14,7 @@
         // replyする投稿を投稿フォームの上にコピーする。
         var main_micropost_block = document.getElementById( 'micropost-' + main_micropost_id );
         var clone_main_micropost = main_micropost_block.cloneNode(true);
-        clone_main_micropost.removeChild(clone_main_micropost.childNodes.item(5));
+        clone_main_micropost.removeChild(clone_main_micropost.childNodes.item(3));   
         clone_main_micropost.id = 'disp_micropost';
         clone_main_micropost.childNodes.item(1).id = 'before_set_button_place';
 
