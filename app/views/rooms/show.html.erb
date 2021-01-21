@@ -1,9 +1,14 @@
 <div class="max-w-2xl md:w-3/4 py-4 mx-2">
-  <div class="px-4 my-4 font-medium">Rooms#show</div>
-  <h1 class="text-center">DMの相手</h1>
+  <div class="px-4 my-4 font-medium">DM</div>
+  <h1 class="text-center"></h1>
   <% @entries.each do |e| %>
     <% if e.user_id != current_user.id %>
       <div class="text-center">
+        <% if e.user.avatar? %>
+          <%= image_tag e.user.avatar.thumb50.url, class: "w-20 h-20 mx-auto rounded-full" %>
+        <% else %>
+          <%= image_tag "/assets/default.png", :size => '100x100', class: "w-20 h-20 mx-auto rounded-full border border-gray-400" %>
+        <% end %>
         <strong>
           <%#= image_tag e.user.avatar, class:"user-image" %>
             <a class="rooms-user-link" href="/users/<%= e.user.id %>">
@@ -23,7 +28,7 @@
     <div class="posts">
       <%= form_with model: @message do |f| %>
         <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70,
-        class: "px-3 py-1 border border-gray-600" %>
+          class: "px-3 py-1 border border-gray-600" %>
         <%= f.hidden_field :room_id, value: @room.id %>
         <%= f.submit "投稿",
             class: "base_button m-0 text-sm bg-white hover:bg-gray-100 text-gray-700 border-gray-400 rounded-none" %>

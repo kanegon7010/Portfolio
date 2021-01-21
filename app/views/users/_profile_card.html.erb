@@ -1,8 +1,13 @@
 <div class="max-w-lg">
   <div class="bg-white border rounded-lg py-3">
     <div class="photo-wrapper p-2">
-      <img class="w-32 h-32 rounded-full mx-auto"
-        src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe">
+      <div>
+        <% if user.avatar? %>
+          <%= image_tag user.avatar.thumb50.url, class: "w-32 h-32 rounded-full mx-auto" %>
+        <% else %>
+          <%= image_tag "/assets/default.png", :size => '100x100', class: "w-32 h-32 rounded-full border border-gray-400 mx-auto" %>
+        <% end %>
+      </div>
     </div>
     <div class="p-2">
       <h3 class="text-center text-xl text-gray-900 font-medium leading-8"><%= user.username %></h3>
@@ -31,7 +36,7 @@
           </tr>
           <tr>
             <td class="px-2 py-2 text-gray-500 font-semibold">作成日</td>
-            <td class="px-2 py-2"><%= user.created_at %></td>
+            <td class="px-2 py-2"><%= user.created_at.strftime("%Y-%m-%d") %></td>
           </tr>
         </tbody>
       </table>

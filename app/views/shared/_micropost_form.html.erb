@@ -9,6 +9,11 @@
                 class: "bg-gray-100 rounded border border-gray-400 leading-normal resize-none
                   w-full h-24 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none 
                   focus:bg-white" %>
+              <% if page == "reply_page" %>
+                <%= hidden_field_tag :default_main_micropost_id, main_micropost.id %>
+              <% else %>
+                <%= hidden_field_tag :redirect_flg, false %>
+              <% end %>
             </div>
           </div>
           <div class="w-full md:w-full flex items-start md:w-full ">

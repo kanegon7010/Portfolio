@@ -14,7 +14,7 @@
         // replyする投稿を投稿フォームの上にコピーする。
         var main_micropost_block = document.getElementById( 'micropost-' + main_micropost_id );
         var clone_main_micropost = main_micropost_block.cloneNode(true);
-        clone_main_micropost.removeChild(clone_main_micropost.childNodes.item(5));
+        clone_main_micropost.removeChild(clone_main_micropost.childNodes.item(3));   
         clone_main_micropost.id = 'disp_micropost';
         clone_main_micropost.childNodes.item(1).id = 'before_set_button_place';
 
@@ -40,11 +40,11 @@
         var micropost_form_field = document.getElementById('micropost_form_field');
         var reply_hidden_input = document.createElement('input');
         reply_hidden_input.type = 'hidden';
-        reply_hidden_input.id = 'reply_relationship[main_micropost_id]';
-        reply_hidden_input.name = 'reply_relationship[main_micropost_id]';
+        reply_hidden_input.id = 'main_micropost_id';
+        reply_hidden_input.name = 'main_micropost_id';
         reply_hidden_input.value =  main_micropost_id;
 
-        var appended_reply_field = document.getElementById('reply_relationship[main_micropost_id]');
+        var appended_reply_field = document.getElementById('main_micropost_id');
 
         if (appended_reply_field != null) {
           appended_reply_field.remove();
@@ -72,7 +72,7 @@
           appended_disp_wrap = document.getElementById('appended_disp_wrap');
           appended_disp_wrap.remove();
 
-          appended_reply_field = document.getElementById('reply_relationship[main_micropost_id]');
+          appended_reply_field = document.getElementById('main_micropost_id');
           appended_reply_field.remove();
         }
         ////////////関数///////////////////////////////////////////////

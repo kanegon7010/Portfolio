@@ -3,7 +3,12 @@ class RoomsController < ApplicationController
 
   def index
     rooms = Entry.select("room_id").where(user_id: current_user.id)
-    @others = Entry.eager_load(:user).where(room_id: rooms).where.not(user_id: current_user.id)
+    if rooms.present?
+      @rooms_present = true
+      @others = Entry.eager_load(:user).where(room_id: rooms).where.not(user_id: current_user.id)
+    else
+      @rooms_present = false
+    end
   end
 
   def show

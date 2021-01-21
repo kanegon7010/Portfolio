@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :string(255)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  remember_created_at    :datetime
@@ -34,6 +35,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
+  
+  mount_uploader :avatar, AvatarUploader
 
   VALID_PASSWORD_REGEX =/\A[a-zA-Z0-9_.-]+\z/
   validates :username, presence: true
@@ -54,7 +57,7 @@ class User < ApplicationRecord
   def feed
     following_ids_subselect = "SELECT following_id FROM relationships 
                       WHERE follower_id = :user_id"
-    Micropost.eager_load(:user).where("user_id IN (#{following_ids_subselect}) OR user_id = :user_id",
+    Micropost.eager_load(:user, :replied_relationships, :replied).where("microposts.user_id IN (#{following_ids_subselect}) OR microposts.user_id = :user_id",
                   user_id: id)
   end
 
@@ -77,6 +80,19 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
     end
+  end
+
+  def update_without_current_password(params, *options)
+    params.delete(:current_password)
+
+    if params[:password].blank? && params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
   end
 
 end

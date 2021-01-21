@@ -3,14 +3,14 @@
   <div class="before_main_microposts">
     <%= render partial:'micropost', collection: @before_main_micropost_list, as: 'micropost' %>
   </div>
-  <div class="main_micropost">
+  <div class="main_micropost bg-blue-300 max-w-lg">
     <%= render 'micropost', micropost: @main_micropost %>
   </div>
-  <div class="reply_microposts">
+  <div class="reply_microposts" id="reply_microposts">
     <%= render partial:'micropost', collection: @reply_microposts %>
   </div>
   <div>
-    <%= render 'shared/micropost_form', micropost: @micropost %>
+    <%= render 'shared/micropost_form', micropost: @micropost, page: "reply_page", main_micropost: @main_micropost %>
   </div>
 </div>
 

@@ -1,12 +1,12 @@
 <% @messages.each do |message| %>
   <% if message.user_id == current_user.id %>
-    <div class="chat-box w-8/12 my-6 mr-0 ml-auto text-right">
+    <div class="chat-box w-8/12 my-6 mr-0 ml-auto">
       <div class="chat-face">
         <%#= image_tag m.user.avatar, class:"user-image" %>
       </div>
       <div class="chat-hukidashi">
-        <div class="my-4">
-          <span class="text-white p-3 bg-indigo-500 border-indigo-500 rounded-tl-lg rounded-tr-lg rounded-bl-lg">
+        <div class="flex flex-col items-end my-4">
+          <span class="text-white break-all p-3 bg-indigo-500 border-indigo-500 rounded-tl-lg rounded-tr-lg rounded-bl-lg">
             <%= message.message %>
           </span>
         </div>
@@ -29,8 +29,8 @@
         <%#= image_tag m.user.avatar, class:"user-image" %>
       </div>
       <div class="chat-other-hukidashi"> 
-      <div class="my-4">
-        <span class="text-black p-3 bg-gray-300 border-black rounded-tl-lg rounded-tr-lg rounded-br-lg">
+      <div class="flex flex-col items-start my-4">
+        <span class="text-black break-all p-3 bg-gray-300 border-black rounded-tl-lg rounded-tr-lg rounded-br-lg">
           <%= message.message %>
         </span>
       </div>
