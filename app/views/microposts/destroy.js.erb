@@ -1,1 +1,3 @@
-document.getElementById("feed_microposts_wrap").innerHTML = "<%= j(render( partial: 'micropost', collection: @feed_microposts)) %>";
+if (document.getElementById("feed_microposts_wrap") != null ) {
+  document.getElementById("feed_microposts_wrap").innerHTML = "<%= j(render( partial: 'micropost', collection: @feed_microposts)) %>";
+}

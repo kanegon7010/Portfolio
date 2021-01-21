@@ -57,7 +57,7 @@ class User < ApplicationRecord
   def feed
     following_ids_subselect = "SELECT following_id FROM relationships 
                       WHERE follower_id = :user_id"
-    Micropost.eager_load(:user).where("user_id IN (#{following_ids_subselect}) OR user_id = :user_id",
+    Micropost.eager_load(:user, :replied_relationships, :replied).where("microposts.user_id IN (#{following_ids_subselect}) OR microposts.user_id = :user_id",
                   user_id: id)
   end
 

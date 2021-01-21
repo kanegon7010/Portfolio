@@ -1,6 +1,6 @@
 <div class="max-w-2xl w-full md:w-3/4 py-4 mx-auto">
   <div class="">
-    <div class="my-4 font-medium">Cvs#show
+    <div class="my-4 font-medium">
     </div>
 
     <% if @cv_present == true %>
@@ -79,9 +79,13 @@
         <% end %>
       <% end %>
     <% else %>
-      <div>CVがまだ作成されていません。以下のボタンから作成をしてください。</div>
-      <%= link_to 'CVの作成', new_cv_path(@user) ,
-        class: "base_button bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500" %>
+      <% if @user.id == current_user.id %>
+        <div>CVがまだ作成されていません。以下のボタンから作成をしてください。</div>
+        <%= link_to 'CVの作成', new_cv_path(@user) ,
+          class: "base_button bg-white text-blue-500 hover:text-white hover:bg-blue-500 border-blue-500" %>
+      <% else %>
+        <div>このユーザーはCVを作成されていません。</div>
+      <% end %>
     <% end %>
   </div>
 </div>

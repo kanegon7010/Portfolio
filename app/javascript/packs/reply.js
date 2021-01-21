@@ -40,11 +40,11 @@
         var micropost_form_field = document.getElementById('micropost_form_field');
         var reply_hidden_input = document.createElement('input');
         reply_hidden_input.type = 'hidden';
-        reply_hidden_input.id = 'reply_relationship[main_micropost_id]';
-        reply_hidden_input.name = 'reply_relationship[main_micropost_id]';
+        reply_hidden_input.id = 'main_micropost_id';
+        reply_hidden_input.name = 'main_micropost_id';
         reply_hidden_input.value =  main_micropost_id;
 
-        var appended_reply_field = document.getElementById('reply_relationship[main_micropost_id]');
+        var appended_reply_field = document.getElementById('main_micropost_id');
 
         if (appended_reply_field != null) {
           appended_reply_field.remove();
@@ -72,7 +72,7 @@
           appended_disp_wrap = document.getElementById('appended_disp_wrap');
           appended_disp_wrap.remove();
 
-          appended_reply_field = document.getElementById('reply_relationship[main_micropost_id]');
+          appended_reply_field = document.getElementById('main_micropost_id');
           appended_reply_field.remove();
         }
         ////////////関数///////////////////////////////////////////////

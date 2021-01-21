@@ -5,26 +5,27 @@ class MicropostsController < ApplicationController
   def show
     @main_micropost = Micropost.find(params[:id])
     @micropost = current_user.microposts.build
-    @reply_microposts = @main_micropost.replied.preload(:user,:replying_relationships, :replying, :replied_relationships, :replied)
+    @reply_microposts = Micropost.eager_load(:user,:replying, :replied).
+          where("reply_relationships.main_micropost_id = :id", id: @main_micropost.id).reorder(nil).order(id: :asc)  
     
     @before_main_micropost_list =[]
     if @main_micropost.replying.nil?
-      present_flag = nil
+      before_main_micropost_id = nil
     else
-      present_flag = @main_micropost.replying.id 
+      before_main_micropost_id = @main_micropost.replying.id 
     end
     before_main_micropost = @main_micropost.replying
 
-    while present_flag != nil
-      @before_main_micropost_list.push(before_main_micropost)
+    while before_main_micropost_id != nil
+      @before_main_micropost_list.push(before_main_micropost_id)
       if before_main_micropost.replying.nil?
-        present_flag = nil
+        before_main_micropost_id = nil
       else
         before_main_micropost = before_main_micropost.replying
-        present_flag = before_main_micropost.id
+        before_main_micropost_id = before_main_micropost.id
       end
     end
-    @before_main_micropost_list = @before_main_micropost_list.reverse    
+    @before_main_micropost_list = Micropost.eager_load(:user, :replied).where(id: @before_main_micropost_list).reorder(nil).order(id: :asc)   
   end
 
   def create
@@ -33,11 +34,16 @@ class MicropostsController < ApplicationController
       if reply_chk
         ReplyRelationship.create(main_micropost_id: @main_micropost_id, reply_micropost_id: @micropost.id)
       end
-      flash[:success] = "Micropost created!"
-      @feed_microposts = current_user.feed
-      respond_to do |format|
-        format.html {redirect_back(fallback_location: root_url)}
-        format.js
+      unless request.referer&.include?("/microposts/")
+        flash[:notice] = "Micropost created!"
+        @feed_microposts = current_user.feed
+        respond_to do |format|
+          format.html {redirect_back(fallback_location: root_url)}
+          format.js
+        end
+      else
+        flash[:notice] = "Micropost created!"
+        redirect_to micropost_path(@main_micropost_id)
       end
     else
       @feed_items = []
@@ -51,14 +57,18 @@ class MicropostsController < ApplicationController
     @feed_microposts = current_user.feed
     respond_to do |format|
       format.html {redirect_back(fallback_location: root_url)}
-      format.js
+      if request.referer&.include?("/microposts/")
+        format.js {redirect_to root_path}
+      else
+        format.js
+      end
     end
   end
 
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content, reply_relationship: [:main_micropost_id])
+      params.require(:micropost).permit(:content, :main_micropost_id, :default_main_micropost_id)
     end
 
     def correct_user
@@ -67,10 +77,14 @@ class MicropostsController < ApplicationController
     end
 
     def reply_chk
-      if params.dig(:reply_relationship,:main_micropost_id)
-        @main_micropost_id = params[:reply_relationship][:main_micropost_id]
+      if params.dig(:main_micropost_id)
+        @main_micropost_id = params[:main_micropost_id]
       else
-        false
+        if params.dig(:default_main_micropost_id)
+          @main_micropost_id = params[:default_main_micropost_id]
+        else
+          false
+        end
       end
     end
     

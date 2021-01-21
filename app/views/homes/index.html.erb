@@ -2,14 +2,13 @@
   <% if user_signed_in? %>
     <div class="flex items-baseline">
       <div class="flex-1 mr-2 max-w-lg">
-        <h1>Homes#index</h1>
         <h3>タイムライン</h3>
         <%= render "shared/feed" %>
       </div>
       <div class="flex-1 sticky top-40 ">
         <h4 class="mx-autoshadow-lg max-w-lg bg-white px-3 pt-3 pb-3 border border-b-0 rounded-t-xl " >投稿フォーム</h4>
         <section id="micropost_form_wrap">
-          <%= render "shared/micropost_form", micropost: @micropost %>
+          <%= render "shared/micropost_form", micropost: @micropost, page: "home_page" %>
         </section>
       </div>
     </div>

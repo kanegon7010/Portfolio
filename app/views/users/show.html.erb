@@ -1,7 +1,7 @@
 <% provide(:title, @user.username) %>
 
 <div class="py-4 mx-auto px-4 sm:ml-0 sm:pl-0 sm:mr-auto sm:pr-4">
-  <div class="px-4 my-4 font-medium">Users#show</div>
+  <div class="px-4 my-4 font-medium"></div>
   <div class="flex items-baseline">
     <div class="flex-1 mr-2 max-w-lg">
       <%= render "profile_card", user: @user %>
@@ -18,7 +18,7 @@
     <div class="flex-1 sticky top-40 ">
       <div class="mx-autoshadow-lg max-w-lg bg-white px-3 pt-3 pb-3 border border-b-0 rounded-t-xl " >投稿フォーム
       </div>
-      <%= render "shared/micropost_form", micropost: @micropost %>
+      <%= render "shared/micropost_form", micropost: @micropost, page: "user_page" %>
     </div>
   </div>
 </div>
