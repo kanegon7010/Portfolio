@@ -1,5 +1,5 @@
 class HomesController < ApplicationController
-
+  before_action :authenticate_user!, only: [:search]
   def index
     if user_signed_in?
       @micropost = current_user.microposts.build
