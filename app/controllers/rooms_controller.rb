@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
     if Entry.where(user_id: current_user.id,room_id: @room.id).present?
       @messages = Message.eager_load(:room,:user).where(room_id: @room.id)
       @message = Message.new
-      @entries = @room.entries
+      @entries = @room.entries.preload(:user)
     else
       redirect_back(fallback_location: root_path)
     end

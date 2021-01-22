@@ -4,6 +4,6 @@
 
 @layer components {
   .base_button {
-    @apply text-xs font-semibold rounded-lg px-4 py-1 leading-normal border;
+    @apply text-xs font-semibold rounded-lg px-4 py-1 leading-normal border cursor-pointer;
   }
 }

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @micropost = @user.microposts.build
-    @microposts = Micropost.where(user_id: @user.id)
+    @microposts = Micropost.eager_load(:user).where(user_id: @user.id)
     room_make_check(@user)
     if @isRoom
     else

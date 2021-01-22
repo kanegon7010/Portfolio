@@ -1,0 +1,71 @@
+<div class="max-w-2xl md:w-3/4 py-4 mx-2">
+  <div class="mb-4">
+    <h1 class="text-xl">検索結果</h1>
+  </div>
+  <div class="my-px">
+    <%= search_form_for @search_q2, url: search_path, as: :q2 do |f| %>
+      <div class="flex flex-row items-center h-12 px-3 rounded-lg text-gray-600 bg-gray-100">
+        <span class="flex items-center justify-center text-lg text-gray-500">
+          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 20px; height: 20px; opacity: 1;" xml:space="preserve"  class="h-6 w-6">
+          <g>
+            <path class="st0" d="M379.379,306.344c17.691-30.174,27.857-65.291,27.857-102.725s-10.166-72.551-27.857-102.725
+              c-17.692-30.144-42.893-55.346-73.037-73.037C276.168,10.166,241.052,0,203.618,0c-37.433,0-72.55,10.166-102.724,27.858
+              C70.75,45.549,45.549,70.75,27.857,100.895C10.166,131.069,0,166.186,0,203.62s10.166,72.55,27.857,102.725
+              c17.692,30.144,42.893,55.346,73.037,73.037c30.174,17.691,65.291,27.858,102.724,27.858c37.434,0,72.55-10.166,102.724-27.858
+              C336.486,361.69,361.688,336.489,379.379,306.344z M227.934,300.973c-7.791,1.948-15.936,2.981-24.316,2.981
+              c-8.38,0-16.525-1.033-24.316-2.981c-35.825-8.942-64.095-37.212-73.037-73.037c-1.948-7.791-2.981-15.936-2.981-24.316
+              s1.033-16.526,2.981-24.316c8.942-35.825,37.212-64.096,73.037-73.038c7.791-1.948,15.936-2.98,24.316-2.98
+              c8.381,0,16.526,1.033,24.316,2.98c35.825,8.942,64.095,37.212,73.037,73.038c1.948,7.791,2.98,15.936,2.98,24.316
+              s-1.033,16.526-2.98,24.316C292.03,263.761,263.759,292.032,227.934,300.973z" style="fill: rgb(107, 114, 128);"></path>
+            <path class="st0" d="M496.872,423.839l-85.357-85.358c-18.96,29.141-43.896,54.078-73.037,73.038l85.358,85.358
+              C433.913,506.954,447.134,512,460.354,512s26.441-5.046,36.518-15.124C517.042,476.706,517.042,444.009,496.872,423.839z" style="fill: rgb(107, 114, 128);"></path>
+          </g>
+          </svg>
+        </span>
+        <%= f.search_field :username_or_service_id_cont, value: @search_word, placeholder: "検索はこちら", class: "w-full my-2 px-3 text-base bg-gray-100 outline-none" %>
+        <%= f.submit "検索", class: "flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-300 h-6 px-2 ml-2 rounded-lg ml-auto cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="py-4 flex justify-center items-center w-full divide-x divide-gray-400 divide-solid">
+    <div>
+      <%= search_form_for @search_q2, url: search_path, as: :q2 do |f| %>
+        <%= f.hidden_field :username_or_service_id_cont, value: @search_word %>
+        <%= f.submit "ユーザー", class: "text-lg text-gray-500 font-semibold px-8 ml-2 ml-auto bg-white border-l border-gray-400 cursor-pointer" %>
+      <% end %>
+    </div>
+    <div>
+      <%= search_form_for @search_m, url: search_path, as: :m do |f| %>
+        <%= f.hidden_field :content_cont, value: @search_word %>
+        <%= f.submit "投稿", class: "text-lg text-gray-500 font-semibold px-8 ml-2 ml-auto bg-white border-r border-gray-400 cursor-pointer" %>
+      <% end %>
+    </div>
+  </div>
+  <% if @search_type == "user" %>
+    <div class="mb-4">
+      <% if @search_word == "" %>
+        <span>検索キーワードがありません。</span>
+      <% elsif @search_users.present? %>
+        <span class="text-lg"><%= "#{@search_word}に該当するユーザー:  #{ @search_users.size}件" %></span>
+        <div class="px-4 my-4 font-medium"></div>
+          <%= render partial: 'users/user_card', collection: @search_users, as: "user" %>
+        </div>
+      <% else %>
+        <span>検索に一致するユーザーは見つかりませんでした</span>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mb-4">
+      <% if @search_word == "" %>
+        <span>検索キーワードがありません。</span>
+      <% elsif @search_microposts.present? %>
+        <span class="text-lg"><%= "#{@search_word}に該当するユーザー:  #{ @search_microposts.size}件" %></span>
+        <div class="px-4 my-4 font-medium"></div>
+          <%= render partial: 'microposts/micropost', collection: @search_microposts, as: "micropost" %>
+        </div>
+      <% else %>
+        <span>検索に一致する投稿はありませんでした</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
