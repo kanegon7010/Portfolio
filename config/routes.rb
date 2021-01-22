@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   root 'homes#index'
-  get 'homes/show'
+  get 'search', to: 'homes#search', as: :search
   resources :users, only: [:index, :show] do 
     member do
       get :followings, :followers

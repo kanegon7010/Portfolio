@@ -12,15 +12,18 @@
         <div class="font-semibold text-gray-700">
           <%= user.username %>
         </div>
+        <div class="text-gray-400">
+          @<%= user.service_id %>
+        </div>
       </div>
     </div>
   <% end %>
   <% if user_signed_in? && user != current_user%>
     <div id="follow_form_<%= user.id %>" class="">
       <% if current_user.following?(user) %>
-        <%= render "unfollow", user: user %>
+        <%= render "users/unfollow", user: user %>
       <% else %>
-        <%= render "follow", user: user %>
+        <%= render "users/follow", user: user %>
       <% end %>
     </div>
   <% end %>

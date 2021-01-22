@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_search
 
   protected
     def configure_permitted_parameters
@@ -51,4 +52,10 @@ class ApplicationController < ActionController::Base
         false
       end
     end
+
+    def set_search
+      @search = User.ransack(params[:q]) 
+      #ransackの検索メソッド
+    end
+
 end
