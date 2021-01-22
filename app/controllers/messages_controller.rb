@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     if follow_for_follow?(@otheruser.id)
       if Entry.where(user_id: current_user.id, room_id: @room.id).present?
         @message = Message.create(params.require(:message).permit(:user_id, :message, :room_id).merge(user_id: current_user.id))
+        @message.create_notification_message!(current_user, @otheruser.id)
         gets_entries_all_messages
         respond_to do |format|
           format.html {redirect_back(fallback_location: root_url)}

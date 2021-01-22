@@ -33,6 +33,8 @@ class MicropostsController < ApplicationController
     if @micropost.save
       if reply_chk
         ReplyRelationship.create(main_micropost_id: @main_micropost_id, reply_micropost_id: @micropost.id)
+        main_micropost = Micropost.find(@main_micropost_id)
+        main_micropost.create_notification_reply_micropost!(current_user, @micropost.id)
       end
       unless request.referer&.include?("/microposts/")
         flash[:notice] = "Micropost created!"

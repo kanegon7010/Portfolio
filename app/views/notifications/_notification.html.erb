@@ -1,0 +1,51 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+<div class="flex flex-col my-2 p-4 border">
+  <div class="flex flex-row items-center">
+    <div class="">
+      <%= link_to user_path(visitor) do %>
+        <span class="inline-block align-middle">
+          <% if visitor.avatar? %>
+            <%= image_tag visitor.avatar.thumb50.url, class: "w-12 h-12 rounded-full" %>
+          <% else %>
+            <%= image_tag "/assets/default.png", :size => '100x100', class: "w-12 h-12 rounded-full border border-gray-400" %>
+          <% end %>
+        </span>
+      <% end %>
+      <%= link_to user_path(visitor) do %>
+        <%= visitor.username %>
+      <% end %>
+      <span>さんが</span>
+      <% case notification.action %>
+        <% when 'follow' then %>
+          <span class="font-semibold">あなたをフォロー</span>しました
+        <% when 'reply' then%>
+          <% if notification.main_micropost.user_id == visited.id %>
+            <%= link_to "あなたの投稿", notification.main_micropost, class: "font-semibold" %>
+          <% else %>
+              <%= link_to micropost_path(notification.main_micropost),class: "m-0" do %>
+                <span class="inline-block align-middle">
+                  <% if notification.main_micropost.user.avatar? %>
+                    <%= image_tag notification.main_micropost.user.avatar.thumb50.url, class: "w-12 h-12 rounded-full" %>
+                  <% else %>
+                    <%= image_tag "/assets/default.png", :size => '100x100', class: "w-12 h-12 rounded-full border border-gray-400" %>
+                  <% end %>
+                </span>
+              <% end %>
+              <%= link_to micropost_path(notification.main_micropost), class: "font-semibold" do %>
+                <%= notification.main_micropost.user.username + 'さんの投稿'%>
+              <% end %>
+          <% end %>
+          <%= "に返信しました"%>
+      <% end %>
+    </div>
+    <div class="mr-0 ml-auto  text-gray-700 text-sm" >
+      <%= notification.created_at.strftime("%Y-%m-%d") %>
+    </div>
+  </div>
+  <% if notification.action == 'reply' %>
+    <div class="p-3 my-2 bg-gray-100 text-gray-800" >
+      <%= Micropost.find_by(id: notification.reply_micropost)&.content %>
+    </div>
+  <% end %>
+</div>

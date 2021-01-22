@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :rooms, only: [:index, :create, :show]
   resources :relationships, only: [:create, :destroy]
   resources :microposts, only: [:show, :create, :destroy]
+  resources :notifications, only: :index
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

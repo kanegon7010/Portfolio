@@ -23,4 +23,22 @@ class Message < ApplicationRecord
   validates :message, presence: true
   belongs_to :user
   belongs_to :room
+  has_many :notifications, dependent: :destroy
+
+  def create_notification_message!(current_user, visited_id)
+    # visited_id = Entries.where(room_id: self.id).where.not(user_id: current_user.id)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and message_id = ? and action = ? ", current_user.id, visited_id, id, 'message'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        message_id: id,
+        visited_id: visited_id,
+        action: 'message'
+      )
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
 end

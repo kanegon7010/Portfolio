@@ -35,6 +35,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :rooms, through: :entries
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   
   mount_uploader :avatar, AvatarUploader
 
@@ -71,6 +73,18 @@ class User < ApplicationRecord
   #ユーザーのフォローを解除する
   def unfollow(other_user)
     self.following_relationships.find_by(following_id: other_user.id).destroy
+  end
+
+  #フォロー通知のデータを作成する
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        visited_id: id,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
   end
 
   def self.guest

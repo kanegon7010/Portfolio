@@ -17,6 +17,7 @@ class RoomsController < ApplicationController
       @messages = Message.eager_load(:room,:user).where(room_id: @room.id)
       @message = Message.new
       @entries = @room.entries.preload(:user)
+      notification_update
     else
       redirect_back(fallback_location: root_path)
     end
@@ -36,6 +37,16 @@ class RoomsController < ApplicationController
       end
     else
       redirect_to root_path 
+    end
+  end
+
+  def notification_update
+    messages = @messages.pluck(:id)
+    notifications = current_user.passive_notifications
+    notifications.where(checked: false, action: 'message').each do |notification|
+      if messages.include?(notification.message_id)
+        notification.update_attributes(checked: true)
+      end
     end
   end
 end

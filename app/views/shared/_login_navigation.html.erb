@@ -74,8 +74,12 @@
           </svg>
         </span>
         <span class="ml-3">DM</span>
-        <span
-          class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-300 h-6 px-2 rounded-full ml-auto">1k</span>
+        <% if unchecked_dm_notifications != 0 %>
+          <span
+            class="flex items-center justify-center text-sm text-green-600 font-semibold bg-green-200 h-6 px-2 rounded-full ml-auto">
+            <%= @notifications_dm_count %>
+          </span>
+        <% end %>
       <% end %>
     </li>
     <li class="my-px">
@@ -104,7 +108,7 @@
       </a>
     </li>
     <li class="my-px">
-      <a href="#" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
+      <a href="/notifications" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
         <span class="flex items-center justify-center text-lg text-gray-500">
           <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
             stroke="currentColor" class="h-6 w-6">
@@ -114,8 +118,12 @@
           </svg>
         </span>
         <span class="ml-3">Notifications</span>
-        <span
-          class="flex items-center justify-center text-sm text-red-500 font-semibold bg-red-300 h-6 px-2 rounded-full ml-auto">10</span>
+        <% if unchecked_notifications != 0 %>
+          <span
+            class="flex items-center justify-center text-sm text-red-500 font-semibold bg-red-300 h-6 px-2 rounded-full ml-auto">
+            <%= @notifications_count %>
+          </span>
+        <% end %>
       </a>
     </li>
     <li class="my-px">
