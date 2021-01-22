@@ -32,5 +32,61 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'Association' do
+    let(:association) do
+       described_class.reflect_on_association(target)
+    end
+
+    context 'main_micropost(micropost)とのアソシエーション' do
+      let(:target) { :main_micropost }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Micropostと関連していること' do
+         expect(association.class_name).to eq 'Micropost' 
+      end
+    end
+
+    context 'reply_micropost(micropost)とのアソシエーション' do
+      let(:target) { :main_micropost }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Micropostと関連していること' do
+         expect(association.class_name).to eq 'Micropost' 
+      end
+    end
+
+    context 'Messageとのアソシエーション' do
+      let(:target) { :message }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Messageと関連していること' do
+         expect(association.class_name).to eq 'Message' 
+      end
+    end
+
+    context 'visitor(user)とのアソシエーション' do
+      let(:target) { :visitor }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Userと関連していること' do
+         expect(association.class_name).to eq 'User' 
+      end
+    end
+
+    context 'visited(user)とのアソシエーション' do
+      let(:target) { :visited }
+      it 'belong_to（１対多）になっていること' do
+         expect(association.macro).to eq :belongs_to
+      end
+      it 'Userと関連していること' do
+         expect(association.class_name).to eq 'User' 
+      end
+    end
+
+  end
 end

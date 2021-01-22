@@ -202,6 +202,26 @@ RSpec.describe User, type: :model do
       end
     end
 
+    context 'active_notifications(notifications)とのアソシエーション' do
+      let(:target) { :active_notifications }
+      it 'has_many（１対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Notificationと関連していること' do
+         expect(association.class_name).to eq 'Notification' 
+      end
+    end
+
+    context 'passive_notifications(notifications)とのアソシエーション' do
+      let(:target) { :passive_notifications }
+      it 'has_many（１対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Notificationと関連していること' do
+         expect(association.class_name).to eq 'Notification' 
+      end
+    end
+
     context 'Cvとのアソシエーション' do
       let(:target) { :cv }
       it 'has_one（1対1）になっていること' do

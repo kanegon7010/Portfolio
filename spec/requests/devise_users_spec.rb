@@ -65,7 +65,7 @@ RSpec.describe "UserAuthentications", type: :request do
   end
 
   describe 'PUT registration #update' do
-    let(:userupdate){ {username: "名前２", current_password: user.password} }
+    let(:userupdate){ {username: "名前２"} }
     context 'ログインしている場合' do
       before do
         sign_in user
