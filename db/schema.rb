@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_134853) do
+ActiveRecord::Schema.define(version: 2021_01_22_065823) do
 
   create_table "cvs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -47,6 +47,23 @@ ActiveRecord::Schema.define(version: 2021_01_20_134853) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "visitor_id", null: false
+    t.bigint "visited_id", null: false
+    t.bigint "main_micropost_id"
+    t.bigint "reply_micropost_id"
+    t.bigint "message_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["main_micropost_id"], name: "index_notifications_on_main_micropost_id"
+    t.index ["message_id"], name: "index_notifications_on_message_id"
+    t.index ["reply_micropost_id"], name: "index_notifications_on_reply_micropost_id"
+    t.index ["visited_id"], name: "index_notifications_on_visited_id"
+    t.index ["visitor_id"], name: "index_notifications_on_visitor_id"
   end
 
   create_table "objectives", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -140,6 +157,11 @@ ActiveRecord::Schema.define(version: 2021_01_20_134853) do
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
   add_foreign_key "microposts", "users"
+  add_foreign_key "notifications", "messages"
+  add_foreign_key "notifications", "microposts", column: "main_micropost_id"
+  add_foreign_key "notifications", "microposts", column: "reply_micropost_id"
+  add_foreign_key "notifications", "users", column: "visited_id"
+  add_foreign_key "notifications", "users", column: "visitor_id"
   add_foreign_key "objectives", "cvs"
   add_foreign_key "qualifications", "cvs"
   add_foreign_key "relationships", "users", column: "follower_id"

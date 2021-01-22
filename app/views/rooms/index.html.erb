@@ -17,14 +17,26 @@
             </div>
             <div class="text-sm text-gray-500">
               <% last_message = Message.where(room_id: other.room_id, user_id: other.user_id).or(Message.where(room_id: other.room_id, user_id: current_user.id)).last %>
-              <% if last_message.user_id == current_user.id %>
-                <% last_message = 'You :  ' + last_message.message %>
-              <% else %>
-                <% last_message = other.user.username + ' :  ' + last_message.message %>
+              <% if last_message != nil %>
+                <% if last_message.user_id == current_user.id %>
+                  <% last_message = 'You :  ' + last_message.message %>
+                <% else %>
+                  <% last_message = other.user.username + ' :  ' + last_message.message %>
+                <% end %>
+                <% last_message = last_message[0..40] + '...' if last_message.length > 40 %>
+                <%= last_message %>
               <% end %>
-              <% last_message = last_message[0..40] + '...' if last_message.length > 40 %>
-              <%= last_message %>
             </div>
+          </div>
+          <div>
+            <% unread_messages = Message.where(room_id: other.room_id).pluck(:id) %>
+            <%  %>
+            <% if unread_messages_notifications(unread_messages) != 0 %>
+              <span
+                class="flex items-center justify-center text-sm text-green-600 font-semibold bg-green-200 h-6 px-2 rounded-full ml-auto">
+                <%= @unread_messages_count %>
+              </span>
+            <% end %>
           </div>
         </div>
       <% end %>

@@ -54,6 +54,26 @@ RSpec.describe Micropost, type: :model do
          expect(association.class_name).to eq 'User' 
       end
     end
+
+    context 'main_notifications（notifications）とのアソシエーション' do
+      let(:target) { :main_notifications }
+      it 'has_many（1対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Notificationと関連していること' do
+         expect(association.class_name).to eq 'Notification' 
+      end
+    end
+
+    context 'reply_notifications（notifications）とのアソシエーション' do
+      let(:target) { :reply_notifications }
+      it 'has_many（1対多）になっていること' do
+         expect(association.macro).to eq :has_many
+      end
+      it 'Notificationと関連していること' do
+         expect(association.class_name).to eq 'Notification' 
+      end
+    end
     
   end
 end
