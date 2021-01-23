@@ -1,11 +1,12 @@
 <div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="flex flex-col h-screen bg-gray-100">
+    <div class="flex flex-col h-screen ">
+
       <!-- Auth Card Container -->
       <div class="grid place-items-center mx-2 my-20 sm:my-auto">
         <!-- Auth Card -->
         <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 
-                bg-white rounded-lg shadow-md lg:shadow-lg">
+                bg-white border-t border-gray-100 rounded-lg shadow-md lg:shadow-lg">
 
           <!-- Card Title -->
           <h2 class="text-center font-semibold text-3xl lg:text-4xl text-gray-800">
@@ -38,20 +39,13 @@
                         focus:outline-none hover:bg-blue-600 hover:shadow-none" %>
 
               <%= link_to "Guest Login", users_guest_sign_in_path, method: :post,
-                  class: "block text-center w-full py-3 mt-10 bg-gray-700 rounded-lg font-medium text-white uppercase
-                          focus:outline-none hover:bg-gray-600 hover:shadow-none" %>
+                  class: "block text-center w-full py-3 mt-10 bg-green-700 rounded-lg font-medium text-white uppercase
+                          focus:outline-none hover:bg-green-600 hover:shadow-none" %>
 
             <!-- Another Auth Routes -->
-            <div class="sm:flex sm:flex-wrap mt-8 sm:mb-4 text-sm text-center">
-              <%= link_to "Forgot your password?", new_password_path(resource_name),
-                class: "flex-2 underline" %>
-
-              <p class="flex-1 text-gray-500 text-md mx-4 my-1 sm:my-auto">
-                or
-              </p>
-
+            <div class="mt-8 sm:mb-4 text-sm text-center">
               <%= link_to "Sign up", new_registration_path(resource_name),
-              class: "flex-2 underline" %>
+              class: "underline" %>
             </div>
           </form>
         </div>
