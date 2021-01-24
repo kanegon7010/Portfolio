@@ -25,7 +25,7 @@
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
-              <%= f.text_field :service_id, autocomplete: "service_id", placeholder: "user_123",
+              <%= f.text_field :service_id, autofocus: true, autocomplete: "service_id", placeholder: "user_123",
                 class: "w-11/12 focus:outline-none focus:text-gray-600 p-2" %>
             </div>
           </div>
@@ -51,7 +51,7 @@
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "123@xxxxx.xxx",
+              <%= f.email_field :email, autocomplete: "email", placeholder: "123@xxxxx.xxx",
                 class: "w-11/12 focus:outline-none focus:text-gray-600 p-2" %>
             </div>
           </div>
