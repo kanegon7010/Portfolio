@@ -2,11 +2,7 @@
   <div class="bg-white border rounded-lg py-3">
     <div class="photo-wrapper p-2">
       <div>
-        <% if user.avatar? %>
-          <%= image_tag user.avatar.thumb50.url, class: "w-32 h-32 rounded-full mx-auto" %>
-        <% else %>
-          <%= image_tag "/assets/default.png", :size => '100x100', class: "w-32 h-32 rounded-full border border-gray-400 mx-auto" %>
-        <% end %>
+        <%= image_tag user.avatar.thumb50.url, class: "w-32 h-32 border border-gray-300 rounded-full mx-auto" %>
       </div>
     </div>
     <div class="p-2">
