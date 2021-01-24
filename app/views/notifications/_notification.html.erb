@@ -5,11 +5,7 @@
     <div class="">
       <%= link_to user_path(visitor) do %>
         <span class="inline-block align-middle">
-          <% if visitor.avatar? %>
-            <%= image_tag visitor.avatar.thumb50.url, class: "w-12 h-12 rounded-full" %>
-          <% else %>
-            <%= image_tag "/assets/default.png", :size => '100x100', class: "w-12 h-12 rounded-full border border-gray-400" %>
-          <% end %>
+          <%= image_tag visitor.avatar.thumb50.url, class: "w-12 h-12 rounded-full border border-gray-300" %>
         </span>
       <% end %>
       <%= link_to user_path(visitor) do %>
@@ -25,11 +21,7 @@
           <% else %>
               <%= link_to micropost_path(notification.main_micropost),class: "m-0" do %>
                 <span class="inline-block align-middle">
-                  <% if notification.main_micropost.user.avatar? %>
-                    <%= image_tag notification.main_micropost.user.avatar.thumb50.url, class: "w-12 h-12 rounded-full" %>
-                  <% else %>
-                    <%= image_tag "/assets/default.png", :size => '100x100', class: "w-12 h-12 rounded-full border border-gray-400" %>
-                  <% end %>
+                  <%= image_tag notification.main_micropost.user.avatar.thumb50.url, class: "w-12 h-12 rounded-full border border-gray-300" %>
                 </span>
               <% end %>
               <%= link_to micropost_path(notification.main_micropost), class: "font-semibold" do %>
