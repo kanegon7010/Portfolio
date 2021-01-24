@@ -32,6 +32,8 @@ gem 'rails-i18n'
 gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'fog-aws'
+gem 'dotenv-rails'
 gem 'ransack'
 gem 'faker'
 

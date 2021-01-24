@@ -14,11 +14,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog
-  # 本番環境でのみawsへ保存される。
+  # 本番環境でのみawsへ保存する。
   if Rails.env.production?
-    storage :aws
+    storage :fog
   else
-  # 開発環境でテストする場合はこちらもawsに変更してください。
     storage :file
   end
 
