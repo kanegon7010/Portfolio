@@ -1,27 +1,22 @@
+require 'carrierwave/storage/abstract'
+require 'carrierwave/storage/file'
+require 'carrierwave/storage/fog'
+
 CarrierWave.configure do |config|
-  if Rails.env.production?
-    config.storage    = :aws
-    config.aws_bucket = "バケット名"
-    config.aws_acl    = 'public-read'
-
-    # The maximum period for authenticated_urls is only 7 days.
-    config.aws_authenticated_url_expiration = 60 * 60 * 24 * 7
-
-    # Set custom options such agit s cache control to leverage browser caching
-    config.aws_attributes = {
-        expires: 1.week.from_now.httpdate,
-        cache_control: 'max-age=604800'
+  if Rails.env.production? # 本番環境の場合はS3へアップロード
+    config.storage :fog
+    config.fog_provider = 'fog/aws'
+    config.fog_directory  = 'matsubishi-sample' # バケット名
+    config.fog_public = false
+    config.fog_credentials = {
+      provider: 'AWS',
+      aws_access_key_id: ENV['S3_ACCESS_KEY_ID'], # アクセスキー
+      aws_secret_access_key: ENV['S3_SECRET_ACCESS_KEY'], # シークレットアクセスキー
+      region: 'ap-northeast-1', # リージョン
+      path_style: true
     }
-
-    # aws credential
-    # 次の項目は前項、S3の設定にある記事を参考にしてください
-    config.aws_credentials = {
-        access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
-        secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
-        region:            'ap-northeast-1'
-    }
-  else
-    # 本番環境以外はローカルにファイルを保存する
-    config.storage    = :file
+  else # 本番環境以外の場合はアプリケーション内にアップロード
+    config.storage :file
+    config.enable_processing = false if Rails.env.test?
   end
 end
