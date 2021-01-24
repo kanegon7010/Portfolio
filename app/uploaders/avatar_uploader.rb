@@ -67,7 +67,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   def default_url
     # app/assets/imagesからパスはスタートしている。
-    'default.png'
+    '/images/default.png'
   end
   
 end
