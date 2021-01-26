@@ -21,6 +21,10 @@ class Users::SessionsController < Devise::SessionsController
   def new_guest
     user = User.guest
     sign_in user
+    notifications = user.passive_notifications
+    notifications.where(checked: true).each do |notification|
+      notification.update_attributes(checked: false)
+    end
     redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
