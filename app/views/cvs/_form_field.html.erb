@@ -1,12 +1,26 @@
+<% inputsize_mini = false %>
+<% case modelname %>
+  <% when :objectives then %>
+    <% model_disp_word = "現在の職種（又は希望職種）" %>
+  <% when :summaries then %>
+    <% model_disp_word = "要約（職歴やスキルなど）" %>
+  <% when :skills then %>
+    <% model_disp_word = "スキル" %>
+  <% when :work_experiences then %>
+    <% model_disp_word = "職歴" %>
+  <% when :qualifications then %>
+    <% model_disp_word = "資格" %>
+<% end %>
+
 <div class="my-2">
   <div id = <%= "" + modelname.to_s + "_group" %> >
-    <span id = <%= "" + modelname.to_s + "" %> ><%= modelname %></span>
+    <span id = <%= "" + modelname.to_s + "" %> ><%= model_disp_word %></span>
       <% if type == :new %>
         <%= f.fields_for modelname, cv.send(modelname.to_s).build do |m| %>
           <div class = "<%= modelname.to_s + "_wrap_" + column.to_s %>
             flex">
             <%= m.text_area column, 
-              class: "w-5/12 bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
+              class: "w-5/12 bg-gray-100 rounded border border-gray-400 leading-normal
                     w-full h-24 py-2 px-3 mb-3 font-medium placeholder-gray-700 focus:outline-none 
                     focus:bg-white" %>
             <div class="flex flex-col w-2/12 place-content-center mx-2 mb-3" >
@@ -22,7 +36,7 @@
           <div class = "<%= modelname.to_s + "_wrap_" + column.to_s%> 
             flex">
             <%= m.text_area column,
-              class: "w-5/12 bg-gray-100 rounded border border-gray-400 leading-normal resize-none 
+              class: "w-5/12 bg-gray-100 rounded border border-gray-400 leading-normal
                     w-full h-24 py-2 px-3 mb-3 font-medium placeholder-gray-700 focus:outline-none 
                     focus:bg-white" %>
             <div class="flex flex-col w-2/12 place-content-center mx-2" >
