@@ -15,7 +15,7 @@
         <span class="timestamp ml-auto mr-2 text-right">
         ・<%= time_ago_in_words(micropost.created_at) %></span>
       </div>
-      <div class="content pt-3 pb-8"><%= micropost.content %></div>
+      <div class="content pt-3 pb-8 whitespace-pre-wrap"><%= micropost.content %></div>
     </div>
   </div>
   <div class="micropost_buttons_wrap flex" id="micropost_buttons_wrap">

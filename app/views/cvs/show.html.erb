@@ -1,3 +1,4 @@
+<% content_for(:title) { 'CVページ' } %>
 <div class="max-w-2xl w-full md:w-3/4 py-4 mx-auto">
   <div class="">
     <div class="my-4 font-medium">
@@ -20,8 +21,8 @@
               <td class="py-4 px-6"><%= cv.user.email %></td>
             </tr>
             <tr class="border-b border-grey-light">
-              <td class="py-4 px-6 ">希望職種</td>
-              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+              <td class="py-4 px-6 ">現在の職種（希望職種）</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-wrap">
                 <% cv.objectives.each do |objective| %>
                   <% if objective.display == true %>
                     <span><%= objective.name %></span>
@@ -30,8 +31,8 @@
               </td>
             </tr>
             <tr class="border-b border-grey-light">
-              <td class="py-4 px-6">サマリ</td>
-              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+              <td class="py-4 px-6">要約（職歴やスキルなど）</td>
+              <td class="flex flex-col py-4 px-6 whitespace-pre-wrap">
                 <% cv.summaries.each do |summary| %>
                   <% if summary.display == true %>
                     <span><%= summary.name %></span>
@@ -41,7 +42,7 @@
             </tr>
             <tr class="border-b border-grey-light">
               <td class="py-4 px-6">スキル</td>
-              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+              <td class="flex flex-col py-4 px-6 whitespace-pre-wrap">
                 <% cv.skills.each do |skill| %>
                   <% if skill.display == true %>
                     <span><%= skill.name %></span>
@@ -51,7 +52,7 @@
             </tr>
             <tr class="border-b border-grey-light">
               <td class="py-4 px-6">職歴</td>
-              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+              <td class="flex flex-col py-4 px-6 whitespace-pre-wrap">
                 <% cv.work_experiences.each do |work_experience| %>
                 <% if work_experience.display == true %>
                     <span><%= work_experience.description %></span>
@@ -61,7 +62,7 @@
             </tr>
             <tr class="border-b border-grey-light">
               <td class="py-4 px-6">資格</td>
-              <td class="flex flex-col py-4 px-6 whitespace-pre-line">
+              <td class="flex flex-col py-4 px-6 whitespace-pre-wrap">
                 <% cv.qualifications.each do |qualification| %>
                   <% if qualification.display == true %>
                     <span><%= qualification.name %></span>
