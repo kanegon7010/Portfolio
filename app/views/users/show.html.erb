@@ -1,8 +1,8 @@
 <% provide(:title, @user.username) %>
 
-<div class="py-4 mx-auto px-4 sm:ml-0 sm:pl-0 sm:mr-auto sm:pr-4">
+<div class="py-4 mx-auto px-4 md:ml-0 md:pl-0 md:mr-auto md:pr-4">
   <div class="px-4 my-4 font-medium"></div>
-  <div class="flex items-baseline">
+  <div class="flex flex-col items-center md:flex-row md:items-baseline">
     <div class="flex-1 mr-2 max-w-lg">
       <%= render "profile_card", user: @user %>
       <% if @microposts.any? %>
@@ -15,7 +15,7 @@
         <ol class="feed_microposts_wrap" id="feed_microposts_wrap"></ol>
       <% end %>
     </div> 
-    <div class="flex-1 sticky top-40 ">
+    <div class="mt-10 md:mt-0 md:flex-1 md:sticky md:top-40">
       <div class="mx-autoshadow-lg max-w-lg bg-white px-3 pt-3 pb-3 border border-b-0 rounded-t-xl " >投稿フォーム
       </div>
       <%= render "shared/micropost_form", micropost: @micropost, page: "user_page" %>
