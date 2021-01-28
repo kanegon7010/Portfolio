@@ -9,21 +9,24 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="sidebar">
+  <body>
     <%= render 'shared/flash_messages' %>
     <div class="flex items-baseline">
-      <% if user_signed_in? %>
-        <div class="sticky top-0 flex-shrink-0 w-auto max-w-xs bg-gray-800 w-3/12">
-          <%= render 'shared/login_navigation' %>
-        </div> 
-      <% else %>
-        <div class="sticky top-0 flex-shrink-0 w-auto max-w-xs bg-gray-800 w-3/12">
-          <%= render 'shared/logout_navigation' %>
-        </div>
-      <% end %>
-      <div class="self-stretch w-9/12">
+      <div class="fixed md:sticky top-0 flex-shrink-0 w-screen md:w-auto">
+        <% if user_signed_in? %>
+          <div class="absolute md:static md:max-w-xs w-screen bg-gray-800">
+            <%= render 'shared/login_navigation' %>
+          </div> 
+        <% else %>
+          <div class="absolute md:static md:max-w-xs w-screen bg-gray-800">
+            <%= render 'shared/logout_navigation' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="self-stretch w-full mx-auto mt-32 md:mt-0 md:w-9/12">
         <%= yield %>
       </div>
     </div>
+    <%= javascript_pack_tag 'navi_toggle' %>
   </body>
 </html>

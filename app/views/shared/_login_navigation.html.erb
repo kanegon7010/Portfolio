@@ -1,160 +1,173 @@
-<div class="flex w-full h-screen max-w-xs p-4 bg-gray-800">
+<div id="navi_wrap" class="flex w-full h-auto md:h-screen max-w-xs p-4 bg-gray-800 mx-auto">
   <ul class="flex flex-col w-full">
     <li class="my-px">
-      <span class="flex item-center justify-center">
+      <span class="flex item-center justify-between md:justify-center">
         <%= image_tag "/images/white_logo.png",:width => '150', class: "mb-2" %>
-      </span>
-    </li>
-    <li class="my-px">
-      <%= search_form_for @search, url: search_path do |f| %>
-        <div class="flex flex-row items-center h-12 px-3 rounded-lg text-gray-600 bg-gray-100">
-          <span class="flex items-center justify-center text-lg text-gray-500">
-            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 20px; height: 20px; opacity: 1;" xml:space="preserve"  class="h-6 w-6">
-            <g>
-              <path class="st0" d="M379.379,306.344c17.691-30.174,27.857-65.291,27.857-102.725s-10.166-72.551-27.857-102.725
-                c-17.692-30.144-42.893-55.346-73.037-73.037C276.168,10.166,241.052,0,203.618,0c-37.433,0-72.55,10.166-102.724,27.858
-                C70.75,45.549,45.549,70.75,27.857,100.895C10.166,131.069,0,166.186,0,203.62s10.166,72.55,27.857,102.725
-                c17.692,30.144,42.893,55.346,73.037,73.037c30.174,17.691,65.291,27.858,102.724,27.858c37.434,0,72.55-10.166,102.724-27.858
-                C336.486,361.69,361.688,336.489,379.379,306.344z M227.934,300.973c-7.791,1.948-15.936,2.981-24.316,2.981
-                c-8.38,0-16.525-1.033-24.316-2.981c-35.825-8.942-64.095-37.212-73.037-73.037c-1.948-7.791-2.981-15.936-2.981-24.316
-                s1.033-16.526,2.981-24.316c8.942-35.825,37.212-64.096,73.037-73.038c7.791-1.948,15.936-2.98,24.316-2.98
-                c8.381,0,16.526,1.033,24.316,2.98c35.825,8.942,64.095,37.212,73.037,73.038c1.948,7.791,2.98,15.936,2.98,24.316
-                s-1.033,16.526-2.98,24.316C292.03,263.761,263.759,292.032,227.934,300.973z" style="fill: rgb(107, 114, 128);"></path>
-              <path class="st0" d="M496.872,423.839l-85.357-85.358c-18.96,29.141-43.896,54.078-73.037,73.038l85.358,85.358
-                C433.913,506.954,447.134,512,460.354,512s26.441-5.046,36.518-15.124C517.042,476.706,517.042,444.009,496.872,423.839z" style="fill: rgb(107, 114, 128);"></path>
-            </g>
+        <button id="navi_toggle" class="md:hidden">
+          <span id="navi_open" class="" >
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+              <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
             </svg>
           </span>
-          <%= f.search_field :username_or_service_id_cont, placeholder: "検索はこちら", class: "w-full my-2 px-3 text-base bg-gray-100 outline-none" %>
-          <%= f.submit "検索", class: "flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-300 h-6 px-2 ml-2 rounded-lg ml-auto cursor-pointer" %>
-        </div>
-      <% end %>
-    </li>
-    
-    <li class="my-px">
-      <%= link_to root_path, 
-        class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path
-              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-            </path>
-          </svg>
-        </span>
-        <span class="ml-3">Home</span>
-      <% end %>
-    </li>
-    <li class="my-px">
-      <a href="/users/<%= current_user.id %>/cv" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-            </path>
-          </svg>
-        </span>
-        <span class="ml-3">CV</span>
-      </a>
-    </li>
-    <li class="my-px">
-      <%= link_to rooms_path,
-        class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 24px; height: 24px; opacity: 1;" xml:space="preserve"  class="h-6 w-6">
-            <g>
-              <path class="st0" d="M85.09,225.65c0-25.46,5.277-49.897,15.369-72.591C39.291,172.32,0,220.374,0,276.675
-                c0,52.253,28.789,97.387,85.449,119.056c2.971,1.127,4.508,4.355,3.432,7.325c-4.303,12.296-9.836,24.079-13.781,32.019
-                c-2.1,4.201,1.486,9.067,6.098,8.3c32.684-5.686,62.908-20.287,85.553-33.35c0.82-0.462,1.69-0.716,2.562-0.716
-                c16.137-0.564,34.832-3.512,48.973-6.533C137.785,374.275,85.09,305.262,85.09,225.65z" style="fill: rgb(107, 114, 128);"></path>
-              <path class="st0" d="M415.68,363.812c62.789-26.58,96.32-78.466,96.32-138.166c0-86.764-80.736-157.102-192.965-157.102
-                s-192.963,70.338-192.963,157.102c0,84.524,76.066,153.418,184.318,156.923c0.873,0.028,1.705,0.304,2.406,0.823
-                c27.473,20.371,61.311,46.547,108.11,57.536c5.414,1.272,9.687-4.796,7.211-9.774c-3.994-8.033-14.348-32.682-20.463-48.738
-                C404.856,375.071,408.443,366.877,415.68,363.812z" style="fill: rgb(107, 114, 128);"></path>
-            </g>
-          </svg>
-        </span>
-        <span class="ml-3">DM</span>
-        <% if unchecked_dm_notifications != 0 %>
-          <span
-            class="flex items-center justify-center text-sm text-green-600 font-semibold bg-green-200 h-6 px-2 rounded-full ml-auto">
-            <%= @notifications_dm_count %>
+          <span id="navi_close" class="hidden">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+              <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+            </svg>
           </span>
+        </button>
+      </span>
+    </li>
+    <div id="navi_menu" class="hidden md:block">
+      <li class="my-px">
+        <%= search_form_for @search, url: search_path do |f| %>
+          <div class="flex flex-row items-center h-12 px-3 rounded-lg text-gray-600 bg-gray-100">
+            <span class="flex items-center justify-center text-lg text-gray-500">
+              <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 20px; height: 20px; opacity: 1;" xml:space="preserve"  class="h-6 w-6">
+              <g>
+                <path class="st0" d="M379.379,306.344c17.691-30.174,27.857-65.291,27.857-102.725s-10.166-72.551-27.857-102.725
+                  c-17.692-30.144-42.893-55.346-73.037-73.037C276.168,10.166,241.052,0,203.618,0c-37.433,0-72.55,10.166-102.724,27.858
+                  C70.75,45.549,45.549,70.75,27.857,100.895C10.166,131.069,0,166.186,0,203.62s10.166,72.55,27.857,102.725
+                  c17.692,30.144,42.893,55.346,73.037,73.037c30.174,17.691,65.291,27.858,102.724,27.858c37.434,0,72.55-10.166,102.724-27.858
+                  C336.486,361.69,361.688,336.489,379.379,306.344z M227.934,300.973c-7.791,1.948-15.936,2.981-24.316,2.981
+                  c-8.38,0-16.525-1.033-24.316-2.981c-35.825-8.942-64.095-37.212-73.037-73.037c-1.948-7.791-2.981-15.936-2.981-24.316
+                  s1.033-16.526,2.981-24.316c8.942-35.825,37.212-64.096,73.037-73.038c7.791-1.948,15.936-2.98,24.316-2.98
+                  c8.381,0,16.526,1.033,24.316,2.98c35.825,8.942,64.095,37.212,73.037,73.038c1.948,7.791,2.98,15.936,2.98,24.316
+                  s-1.033,16.526-2.98,24.316C292.03,263.761,263.759,292.032,227.934,300.973z" style="fill: rgb(107, 114, 128);"></path>
+                <path class="st0" d="M496.872,423.839l-85.357-85.358c-18.96,29.141-43.896,54.078-73.037,73.038l85.358,85.358
+                  C433.913,506.954,447.134,512,460.354,512s26.441-5.046,36.518-15.124C517.042,476.706,517.042,444.009,496.872,423.839z" style="fill: rgb(107, 114, 128);"></path>
+              </g>
+              </svg>
+            </span>
+            <%= f.search_field :username_or_service_id_cont, placeholder: "検索はこちら", class: "w-full my-2 px-3 text-base bg-gray-100 outline-none" %>
+            <%= f.submit "検索", class: "flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-300 h-6 px-2 ml-2 rounded-lg ml-auto cursor-pointer" %>
+          </div>
         <% end %>
-      <% end %>
-    </li>
-    <li class="my-px">
-      <%= link_to users_path,
-        class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path
-              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-            </path>
-          </svg>
-        </span>
-        <span class="ml-3">AllUser</span>
-      <% end %>
-    </li>
-    <li class="my-px">
-      <a href="/users/<%= current_user.id %>" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-          </svg>
-        </span>
-        <span class="ml-3">MyProfile</span>
-      </a>
-    </li>
-    <li class="my-px">
-      <a href="/notifications" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
-            </path>
-          </svg>
-        </span>
-        <span class="ml-3">Notifications</span>
-        <% if unchecked_notifications != 0 %>
-          <span
-            class="flex items-center justify-center text-sm text-red-500 font-semibold bg-red-300 h-6 px-2 rounded-full ml-auto">
-            <%= @notifications_count %>
+      </li>
+      <li class="my-px">
+        <%= link_to root_path, 
+          class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+              </path>
+            </svg>
           </span>
+          <span class="ml-3">Home</span>
         <% end %>
-      </a>
-    </li>
-    <li class="my-px">
-      <%= link_to edit_user_registration_path,
-        class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
-        <span class="flex items-center justify-center text-lg text-gray-500">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-            </path>
-            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-          </svg>
-        </span>
-        <span class="ml-3">Settings</span>
-      <% end %>
-    </li>
-    <li class="my-px">
-      <%= link_to destroy_user_session_path, method: :delete,
-        class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
-        <span class="flex items-center justify-center text-lg text-red-400">
-          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-            stroke="currentColor" class="h-6 w-6">
-            <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z">
-            </path>
-          </svg>
-        </span>
-        <span class="ml-3">Logout</span>
-      <% end %>
-    </li>
+      </li>
+      <li class="my-px">
+        <a href="/users/<%= current_user.id %>/cv" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+              </path>
+            </svg>
+          </span>
+          <span class="ml-3">CV</span>
+        </a>
+      </li>
+      <li class="my-px">
+        <%= link_to rooms_path,
+          class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="width: 24px; height: 24px; opacity: 1;" xml:space="preserve"  class="h-6 w-6">
+              <g>
+                <path class="st0" d="M85.09,225.65c0-25.46,5.277-49.897,15.369-72.591C39.291,172.32,0,220.374,0,276.675
+                  c0,52.253,28.789,97.387,85.449,119.056c2.971,1.127,4.508,4.355,3.432,7.325c-4.303,12.296-9.836,24.079-13.781,32.019
+                  c-2.1,4.201,1.486,9.067,6.098,8.3c32.684-5.686,62.908-20.287,85.553-33.35c0.82-0.462,1.69-0.716,2.562-0.716
+                  c16.137-0.564,34.832-3.512,48.973-6.533C137.785,374.275,85.09,305.262,85.09,225.65z" style="fill: rgb(107, 114, 128);"></path>
+                <path class="st0" d="M415.68,363.812c62.789-26.58,96.32-78.466,96.32-138.166c0-86.764-80.736-157.102-192.965-157.102
+                  s-192.963,70.338-192.963,157.102c0,84.524,76.066,153.418,184.318,156.923c0.873,0.028,1.705,0.304,2.406,0.823
+                  c27.473,20.371,61.311,46.547,108.11,57.536c5.414,1.272,9.687-4.796,7.211-9.774c-3.994-8.033-14.348-32.682-20.463-48.738
+                  C404.856,375.071,408.443,366.877,415.68,363.812z" style="fill: rgb(107, 114, 128);"></path>
+              </g>
+            </svg>
+          </span>
+          <span class="ml-3">DM</span>
+          <% if unchecked_dm_notifications != 0 %>
+            <span
+              class="flex items-center justify-center text-sm text-green-600 font-semibold bg-green-200 h-6 px-2 rounded-full ml-auto">
+              <%= @notifications_dm_count %>
+            </span>
+          <% end %>
+        <% end %>
+      </li>
+      <li class="my-px">
+        <%= link_to users_path,
+          class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+              </path>
+            </svg>
+          </span>
+          <span class="ml-3">AllUser</span>
+        <% end %>
+      </li>
+      <li class="my-px">
+        <a href="/users/<%= current_user.id %>" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </span>
+          <span class="ml-3">MyProfile</span>
+        </a>
+      </li>
+      <li class="my-px">
+        <a href="/notifications" class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700">
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+              </path>
+            </svg>
+          </span>
+          <span class="ml-3">Notifications</span>
+          <% if unchecked_notifications != 0 %>
+            <span
+              class="flex items-center justify-center text-sm text-red-500 font-semibold bg-red-300 h-6 px-2 rounded-full ml-auto">
+              <%= @notifications_count %>
+            </span>
+          <% end %>
+        </a>
+      </li>
+      <li class="my-px">
+        <%= link_to edit_user_registration_path,
+          class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
+          <span class="flex items-center justify-center text-lg text-gray-500">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+              </path>
+              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </span>
+          <span class="ml-3">Settings</span>
+        <% end %>
+      </li>
+      <li class="my-px">
+        <%= link_to destroy_user_session_path, method: :delete,
+          class: "flex flex-row items-center h-12 px-4 rounded-lg text-gray-500 hover:bg-gray-700" do %>
+          <span class="flex items-center justify-center text-lg text-red-400">
+            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+              stroke="currentColor" class="h-6 w-6">
+              <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z">
+              </path>
+            </svg>
+          </span>
+          <span class="ml-3">Logout</span>
+        <% end %>
+      </li>
+    </div>
   </ul>
 </div>
