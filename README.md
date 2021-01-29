@@ -14,12 +14,7 @@
 - コミュニケーションを促す、フォロー・通知・DM機能を実装
 
 # URL
-https://cv-networking-service.site
-
-※ドメイン反映によって表示されない場合があります。
-その場合は、以下でご参照ください
-
-http://54.168.159.202/
+https://cv-networking-service.com
 
 **ゲストユーザーでログイン**できます。
 
